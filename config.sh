@@ -39,7 +39,7 @@ servioticy_broker_source="$provision/broker/$servioticy_broker_name"
 # jetty
 
 JETTY="$wd/jetty"
-jetty_filename="jetty-distribution-8.1.15.v20140411.tar.gz"
+jetty_filename="jetty-distribution-9.2.3.v20140905.tar.gz"
 jetty_url="http://eclipse.org/downloads/download.php?file=/jetty/stable-8/dist/${jetty_filename}&r=1"
 
 #glassfish
@@ -88,10 +88,10 @@ KESTREL_jar="kestrel_2.9.2-2.4.1.jar"
 
 # Elastic Search
 
-ES="$wd/elasticsearch"
+#ES="$wd/elasticsearch"
 
-ES_filename="elasticsearch-1.2.0.tar.gz"
-ES_url="https://download.elasticsearch.org/elasticsearch/elasticsearch/$ES_filename"
+#ES_filename="elasticsearch-1.2.0.tar.gz"
+#ES_url="https://download.elasticsearch.org/elasticsearch/elasticsearch/$ES_filename"
 
 #Apollo
 
