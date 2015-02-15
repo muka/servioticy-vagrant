@@ -6,6 +6,7 @@ archive { 'kestrel-2.4.1':
   url    => 'http://twitter.github.io/kestrel/download/kestrel-2.4.1.zip',
   target => '/opt',
   src_target => '/home/vagrant/downloads',
+  timeout     => 1800,
   require  => [ Package["curl"], Package["unzip"], File['/home/vagrant/downloads/'] ],
 } ->
 file { '/opt/kestrel-2.4.1':
