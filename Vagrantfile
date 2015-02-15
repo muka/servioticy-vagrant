@@ -12,7 +12,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "hashicorp/precise64"
+  config.vm.box = "trusty64"
   #config.puppet_install.puppet_version = :latest
   
   # required by maven
@@ -29,7 +29,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider :virtualbox do |vb|
     #vb.gui = true
-    vb.customize ["modifyvm", :id, "--memory", "4096"]
+
+    vb.customize ["modifyvm", :id, "--memory", 1024 * 6 ]
+    vb.customize ["modifyvm", :id, "--cpus", "4"] 
+
     #unless File.exist?("./datadisk.vdi")        
     #  vb.customize ['createhd', '--filename', './datadisk.vdi', '--size', 2 * 1024]
     #  vb.customize ['storageattach', :id, '--storagectl', "SATA Controller", '--port', 1, '--device', 0, '--type', 'hdd', '--medium', './datadisk.vdi' ]
@@ -46,33 +49,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     puppet.manifest_file = "."
     puppet.options = "--environment dev --graph --graphdir /vagrant/puppet/dependency_graph"
   end
-  
-  # jetty
-  config.vm.network :forwarded_port, guest: 8080, host: 8080
-  config.vm.network :forwarded_port, guest: 8443, host: 8443
-
-  # couchbase
-  config.vm.network :forwarded_port, guest: 8092, host: 8092
-  config.vm.network :forwarded_port, guest: 8091, host: 8091
-
-  # elastic search
-  config.vm.network :forwarded_port, guest: 9200, host: 9200
-
-  # sqlite DB
-  config.vm.network :forwarded_port, guest: 5010, host: 5010
-  
-  #apollo
-  #tcp://0.0.0.0:1883
-  config.vm.network :forwarded_port, guest: 1883, host: 1883
-  #tls://0.0.0.0:61614
-  config.vm.network :forwarded_port, guest: 61614, host: 61614
-  #ws://0.0.0.0:61623/
-  config.vm.network :forwarded_port, guest: 61623, host: 61623
-  #wss://0.0.0.0:61624/
-  config.vm.network :forwarded_port, guest: 61624, host: 61624
-  #http://0.0.0.0:61680/
-  config.vm.network :forwarded_port, guest: 61680, host: 61680
-  #https://0.0.0.0:61681/
-  config.vm.network :forwarded_port, guest: 61681, host: 61681
 
 end
