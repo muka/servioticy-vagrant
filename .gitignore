@@ -5,4 +5,4 @@ nbproject
 servioticy/*
 broker/bridge/node_modules
 nbproject
-
+puppet/dependency_graph/*.dot
