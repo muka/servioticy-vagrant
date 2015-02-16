@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "trusty64"
   #config.puppet_install.puppet_version = :latest
-  
+
   # required by maven
   config.ssh.shell = "export JAVA_HOME=/usr/lib/jvm/java-7-oracle"
 
@@ -30,18 +30,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider :virtualbox do |vb|
     #vb.gui = true
 
-    vb.customize ["modifyvm", :id, "--memory", 1024 * 6 ]
-    vb.customize ["modifyvm", :id, "--cpus", "4"] 
+    vb.customize ["modifyvm", :id, "--memory", 1024 * 5 + 512 ]
+    vb.customize ["modifyvm", :id, "--cpus", "4"]
 
-    #unless File.exist?("./datadisk.vdi")        
+    #unless File.exist?("./datadisk.vdi")
     #  vb.customize ['createhd', '--filename', './datadisk.vdi', '--size', 2 * 1024]
     #  vb.customize ['storageattach', :id, '--storagectl', "SATA Controller", '--port', 1, '--device', 0, '--type', 'hdd', '--medium', './datadisk.vdi' ]
     #end
   end
-  
+
   #config.vm.provision :shell, :inline => "sudo apt-get update && sudo apt-get install puppet -y"
   config.vm.provision :shell, :path => "install_puppet.sh"
-  
+
   #puppet config
   config.vm.provision "puppet" do |puppet|
     puppet.module_path = "puppet/modules"
