@@ -4,8 +4,8 @@ archive { 'apache-storm-0.9.2':
   checksum => false,
   url    => 'http://www.eu.apache.org/dist/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.tar.gz',
   target => '/opt',
-  src_target => '/home/vagrant/downloads',
-  require  => [ Package["curl"], File['/home/vagrant/downloads/'] ],
+  src_target => '/tmp/servioticy',
+  require  => [ Package["curl"], File['/tmp/servioticy/'] ],
 }
 
 #exec { "run_storm":

@@ -1,15 +1,15 @@
 wget::fetch { "couchbase-server-source":
   source      => 'http://packages.couchbase.com/releases/3.0.0/couchbase-server-enterprise_3.0.0-ubuntu12.04_amd64.deb',
-  destination => '/home/vagrant/downloads/couchbase-server-enterprise_3.0.0-ubuntu12.04_amd64.deb',
+  destination => '/tmp/servioticy/couchbase-server-enterprise_3.0.0-ubuntu12.04_amd64.deb',
   timeout     => 0,
   verbose     => false,
-  require     => File['/home/vagrant/downloads/']
+  require     => File['/tmp/servioticy/']
 } ->
 package { "couchbase-server":
   provider => dpkg,
   ensure => installed,
-  source => "/home/vagrant/downloads/couchbase-server-enterprise_3.0.0-ubuntu12.04_amd64.deb"
-} 
+  source => "/tmp/servioticy/couchbase-server-enterprise_3.0.0-ubuntu12.04_amd64.deb"
+}
 
 
 exec {"stop_couchbase":
@@ -24,7 +24,7 @@ exec {"stop_couchbase":
 
 #exec { "create_buckets":
 #    command => "/bin/sh create_buckets.sh",
-#    cwd     => "/vagrant/puppet/files",
+#    cwd     => "/opt/servioticy-vagrant/puppet/files",
 #    path    => "/bin:/usr/bin/:/opt/couchbase/bin/",
 #    require => [ Package['curl'], Exec['wait for couchbase']],
 #    #logoutput => true,

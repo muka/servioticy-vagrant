@@ -1,4 +1,4 @@
-file { '/home/vagrant/downloads/':
+file { '/tmp/servioticy/':
   ensure => 'directory',
 }
 
@@ -15,71 +15,71 @@ file { '/data/couchbase':
 
 file { '/opt/apache-storm-0.9.2-incubating':
           ensure => 'directory',
-          owner => 'vagrant',
-          group => 'vagrant',
+          owner => 'servioticy',
+          group => 'servioticy',
 #          before => Exec['run_storm']
-} 
-
-file { '/home/vagrant/LICENSE.txt':
-          ensure => present,
-          replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',          
-          source => "/vagrant/puppet/files/other/LICENSE.txt",
 }
 
-file { '/home/vagrant/README.txt':
+file { '/home/servioticy/LICENSE.txt':
           ensure => present,
           replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',          
-          source => "/vagrant/puppet/files/other/README.txt",
+          owner    => 'servioticy',
+          group    => 'servioticy',
+          source => "/opt/servioticy-vagrant/puppet/files/other/LICENSE.txt",
 }
 
-file { '/home/vagrant/README.demos.txt':
+file { '/home/servioticy/README.txt':
           ensure => present,
           replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',          
-          source => "/vagrant/puppet/files/other/README.demos.txt",
+          owner    => 'servioticy',
+          group    => 'servioticy',
+          source => "/opt/servioticy-vagrant/puppet/files/other/README.txt",
 }
 
-file { '/home/vagrant/VERSION.txt':
+file { '/home/servioticy/README.demos.txt':
           ensure => present,
           replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',          
-          source => "/vagrant/puppet/files/other/VERSION.txt",
+          owner    => 'servioticy',
+          group    => 'servioticy',
+          source => "/opt/servioticy-vagrant/puppet/files/other/README.demos.txt",
+}
+
+file { '/home/servioticy/VERSION.txt':
+          ensure => present,
+          replace => true,
+          owner    => 'servioticy',
+          group    => 'servioticy',
+          source => "/opt/servioticy-vagrant/puppet/files/other/VERSION.txt",
 }
 
 file { '/opt/servioticy-dispatcher':
           ensure => 'directory',
-          owner => 'vagrant',
-          group => 'vagrant'
-} 
+          owner => 'servioticy',
+          group => 'servioticy'
+}
 
 file { '/opt/servioticy-dispatcher/dispatcher-0.4.1-jar-with-dependencies.jar':
           ensure => present,
           source => "/usr/src/servioticy/servioticy-dispatcher/target/dispatcher-0.4.1-jar-with-dependencies.jar",
           require => [File['/opt/servioticy-dispatcher'],Exec['build_servioticy'],File['/opt/servioticy-dispatcher']],
-          owner => 'vagrant',
-          group => 'vagrant'
+          owner => 'servioticy',
+          group => 'servioticy'
 }
 
 file { '/opt/servioticy-dispatcher/dispatcher.xml':
           ensure => present,
-          source => "/vagrant/puppet/files/dispatcher.xml",
+          source => "/opt/servioticy-vagrant/puppet/files/dispatcher.xml",
           require => [File['/opt/servioticy-dispatcher'], Exec['build_servioticy'],File['/opt/servioticy-dispatcher']],
-          owner => 'vagrant',
-          group => 'vagrant'
+          owner => 'servioticy',
+          group => 'servioticy'
 }
 
 file { '/data/demo':
           ensure => directory,
           replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',          
-          source => "/vagrant/puppet/files/demo",
+          owner    => 'servioticy',
+          group    => 'servioticy',
+          source => "/opt/servioticy-vagrant/puppet/files/demo",
           recurse => remote
 }
 
@@ -87,9 +87,9 @@ file { '/data/demo':
 file { '/opt/servioticy_scripts':
           ensure => directory,
           replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',          
-          source => "/vagrant/puppet/scripts",
+          owner    => 'servioticy',
+          group    => 'servioticy',
+          source => "/opt/servioticy-vagrant/puppet/scripts",
           recurse => remote
 }
 

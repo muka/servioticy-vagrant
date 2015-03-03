@@ -1,12 +1,12 @@
 vcsrepo { "/opt/servioticy-bridge":
   ensure   => latest,
   provider => git,
-  owner    => 'vagrant',
-  group    => 'vagrant',
+  owner    => 'servioticy',
+  group    => 'servioticy',
   require  => [ Package["git"], Package['forever'] ],
   source   => "https://github.com/servioticy/servioticy-brokers.git",
   revision => 'vagrant'
-} 
+}
 #->
 #exec { "run_bridge":
 #  command => "forever start -a --sourceDir /opt/servioticy-bridge -l /tmp/forever_bridge.log -o /tmp/bridge.js.out.log -e /tmp/bridge.js.err.log mqtt-and-stomp-bridge.js",
