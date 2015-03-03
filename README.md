@@ -26,6 +26,16 @@ Now you can start or stop the servioticy services by running:
 
 `start-servioticy` and `stop-servioticy`
 
+##Running on a standalone dev server
+
+***Ensure that this repository is available under `/opt` before launching ***
+
+Install the software components on a running machine. 
+
+It will create a user `servioticy` with password `servioticy` and install all the required packages in `/opt`
+
+`sudo ./puppet-standalone.sh`
+
 ##Notes
 
 - The provision script handles either the configuration of the services, so use
@@ -37,11 +47,7 @@ Now you can start or stop the servioticy services by running:
 
 ##Credits
 
-This Vagrant box is a complete refactor on an initial version developed by Luca Capra at CREATE-NET.
-The original version can be found at:
-
-`https://github.com/muka/servioticy-vagrant`
-
+This Vagrant box is a complete refactor of an initial version developed by Luca Capra at CREATE-NET.
 
 #License
 
