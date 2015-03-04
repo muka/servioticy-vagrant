@@ -5,10 +5,11 @@
 #}
 
 $init_hash = {
-  'ES_USER' => 'elasticsearch',
-  'ES_GROUP' => 'elasticsearch',
-  'ES_HEAP_SIZE' => '1g',
-  'DATA_DIR' => '/data/elasticsearch',
+  'ES_USER'     => 'elasticsearch',
+  'ES_GROUP'    => 'elasticsearch',
+  'ES_HEAP_SIZE'=> '1g',
+  'DATA_DIR'    => '/data/elasticsearch',
+  'CONF_FILE'   => '/etc/elasticsearch/serviolastic/elasticsearch.yml'
 }
 
 class { 'elasticsearch':
