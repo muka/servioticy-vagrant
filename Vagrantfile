@@ -27,6 +27,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # using a specific IP.
   config.vm.network :private_network, ip: "192.168.56.101"
 
+  config.vm.synced_folder "./", "/opt/servioticy-vagrant"
+
   config.vm.provider :virtualbox do |vb|
     #vb.gui = true
 
