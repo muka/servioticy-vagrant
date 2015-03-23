@@ -41,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #end
   end
 
-  #config.vm.provision :shell, :inline => "sudo apt-get update && sudo apt-get install puppet -y"
+  config.vm.provision :shell, :inline => "sudo ln -s /vagrant /opt/servioticy-vagrant"
   config.vm.provision :shell, :path => "install_puppet.sh"
 
   #puppet config

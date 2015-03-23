@@ -5,10 +5,11 @@
 #}
 
 $init_hash = {
-  'ES_USER' => 'elasticsearch',
-  'ES_GROUP' => 'elasticsearch',
-  'ES_HEAP_SIZE' => '1g',
-  'DATA_DIR' => '/data/elasticsearch',
+  'ES_USER'     => 'elasticsearch',
+  'ES_GROUP'    => 'elasticsearch',
+  'ES_HEAP_SIZE'=> '1g',
+  'DATA_DIR'    => '/data/elasticsearch',
+  'CONF_FILE'   => '/etc/elasticsearch/serviolastic/elasticsearch.yml'
 }
 
 class { 'elasticsearch':
@@ -34,26 +35,26 @@ $config_hash = {
 elasticsearch::instance { 'serviolastic':
   config => $config_hash,
   datadir => '/data/elasticsearch',
-} 
+}
 
 vcsrepo { "/opt/servioticy-indices":
   ensure   => latest,
   provider => git,
-  owner    => 'vagrant',
-  group    => 'vagrant',
+  owner    => 'servioticy',
+  group    => 'servioticy',
 #  require  => [ Package["git"],  Exec['wait for elasticsearch']],
   require  => [ Package["git"] ],
   source   => "https://github.com/servioticy/servioticy-elasticsearch-indices.git",
   revision => 'master',
 #  before   => [Exec['create-indices'], Exec['create-xdcr']]
-} 
+}
 
 #exec {
 #    'create-indices':
 #      command => 'sleep 10 && /bin/sh create_soupdates.sh; /bin/sh create_subscriptions.sh',
 #      cwd => "/opt/servioticy-indices",
-#      path =>  "/usr/local/bin/:/bin/:/usr/bin/",          
-#} 
+#      path =>  "/usr/local/bin/:/bin/:/usr/bin/",
+#}
 
 elasticsearch::plugin{ 'mobz/elasticsearch-head':
   module_dir => 'head',

@@ -4,13 +4,13 @@ archive { 'apache-apollo-1.7':
   checksum => false,
   url    => 'http://archive.apache.org/dist/activemq/activemq-apollo/1.7/apache-apollo-1.7-unix-distro.tar.gz',
   target => '/opt',
-  src_target => '/home/vagrant/downloads',
-  require  => [ Package["curl"], File['/home/vagrant/downloads/'] ],      
+  src_target => '/tmp/servioticy',
+  require  => [ Package["curl"], File['/tmp/servioticy/'] ],
 } ->
 file { '/opt/apache-apollo-1.7':
   owner    => 'vagrant',
-  group    => 'vagrant',          
-  
+  group    => 'vagrant',
+
 } ->
 exec { 'create_broker':
   require => [ Package['oracle-java7-installer'] ],
@@ -21,43 +21,43 @@ exec { 'create_broker':
   #logoutput => true,
 } ->
 file { '/opt/servibroker':
-  owner    => 'vagrant',
-  group    => 'vagrant',  
-  before   => [File['/opt/servibroker/etc/apollo.xml'], File['/opt/servibroker/etc/users.properties'], File['/opt/servibroker/etc/groups.properties']]  
-} 
+  owner    => 'servioticy',
+  group    => 'servioticy',
+  before   => [File['/opt/servibroker/etc/apollo.xml'], File['/opt/servibroker/etc/users.properties'], File['/opt/servibroker/etc/groups.properties']]
+}
 
 file { '/opt/servibroker/etc/apollo.xml':
           ensure => present,
           replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',          
-          source => "/vagrant/puppet/files/apollo.xml",
+          owner    => 'servioticy',
+          group    => 'servioticy',
+          source => "/opt/servioticy-vagrant/puppet/files/apollo.xml",
           require => Exec['create_broker']
 }
 
 file { '/opt/servibroker/etc/users.properties':
           ensure => present,
           replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',          
-          source => "/vagrant/puppet/files/users.properties",
+          owner    => 'servioticy',
+          group    => 'servioticy',
+          source => "/opt/servioticy-vagrant/puppet/files/users.properties",
           require => Exec['create_broker']
 }
 
 file { '/opt/servibroker/etc/groups.properties':
           ensure => present,
           replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',          
-          source => "/vagrant/puppet/files/groups.properties",
+          owner    => 'servioticy',
+          group    => 'servioticy',
+          source => "/opt/servioticy-vagrant/puppet/files/groups.properties",
           require => Exec['create_broker']
 }
 
 #exec { 'run_broker':
 #    require => [ Package['oracle-java7-installer'], File['/opt/servibroker/etc/apollo.xml'], File['/opt/servibroker/etc/users.properties'], File['/opt/servibroker/etc/groups.properties']],
-#    user    => 'vagrant',
-#    group    => 'vagrant',
-#    unless => "ps -fA | grep apollo | grep -v grep",          
+#    user    => 'servioticy',
+#    group    => 'servioticy',
+#    unless => "ps -fA | grep apollo | grep -v grep",
 #    cwd => "/opt/servibroker/bin/",
 #    path => "/bin:/usr/bin/:/opt/servibroker/bin/",
 #    command => "apollo-broker run &"

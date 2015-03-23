@@ -1,8 +1,8 @@
 vcsrepo { "/opt/servioticy-composer":
   ensure   => latest,
   provider => git,
-  owner    => 'vagrant',
-  group    => 'vagrant',
+  owner    => 'servioticy',
+  group    => 'servioticy',
   require  => [ Package["git"], Package['forever'] ],
   source   => "https://github.com/servioticy/servioticy-composer.git",
   revision => 'vagrant',

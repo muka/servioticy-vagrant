@@ -1,8 +1,8 @@
 
-apt::ppa { 'ppa:webupd8team/java': 
+apt::ppa { 'ppa:webupd8team/java':
             before => Exec['apt-get update']
 }
-apt::ppa { 'ppa:chris-lea/node.js': 
+apt::ppa { 'ppa:chris-lea/node.js':
             before => Exec['apt-get update']
 }
 
@@ -13,7 +13,7 @@ exec { 'apt-get update':
 exec {
     'set-licence-selected':
       command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections';
- 
+
     'set-licence-seen':
       command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections';
 }
@@ -56,4 +56,10 @@ python::pip { 'Flask' :
 python::pip { 'simplejson' :
     pkgname       => 'simplejson',
 #    before     => Exec['prepare_map_demo']
+}
+
+package { 'muka/servioticy-mgr':
+  ensure   => present,
+  provider => 'npm',
+  require => [Package['nodejs']]
 }

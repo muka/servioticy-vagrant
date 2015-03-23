@@ -6,8 +6,8 @@
 vcsrepo { "/usr/src/servioticy":
   ensure   => latest,
   provider => git,
-  owner    => 'vagrant',
-  group    => 'vagrant',
+  owner    => 'servioticy',
+  group    => 'servioticy',
   require  => [ Package["git"] ],
   source   => "https://github.com/servioticy/servioticy.git",
   revision => 'master',
@@ -16,23 +16,23 @@ class { "maven::maven":
   version => "3.2.2", # version to install
 } ->
  # Setup a .mavenrc file for the specified user
-maven::environment { 'maven-env' : 
-    user => 'vagrant',
+maven::environment { 'maven-env' :
+    user => 'servioticy',
     # anything to add to MAVEN_OPTS in ~/.mavenrc
     maven_opts => '-Xmx1384m',       # anything to add to MAVEN_OPTS in ~/.mavenrc
     maven_path_additions => "",      # anything to add to the PATH in ~/.mavenrc
-} -> 
+} ->
 exec { "build_servioticy":
    cwd     => "/usr/src/servioticy",
    command => "git submodule update --init --recursive; mvn -Dmaven.test.skip=true package",
    path    => "/usr/local/bin/:/usr/bin:/bin/",
-   user    => 'vagrant',
+   user    => 'servioticy',
    timeout => 0
-} 
+}
 
 #exec{ 'prepare_map_demo':
-#    user    => 'vagrant',
-#    group    => 'vagrant',
+#    user    => 'servioticy',
+#    group    => 'servioticy',
 #    cwd => "/data/demo/map/utils",
 #    path => "/bin:/usr/bin/",
 #    command => "sh create_all.sh",
@@ -41,8 +41,8 @@ exec { "build_servioticy":
 
 
 #exec{ 'stop_all':
-#    user    => 'vagrant',
-#    group    => 'vagrant',
+#    user    => 'servioticy',
+#    group    => 'servioticy',
 #    cwd => "/opt/servioticy_scripts",
 #    path => "/bin:/usr/bin/:/opt/servioticy_scripts",
 #    command => "sh stopAll.sh; sh stopAll.sh",
