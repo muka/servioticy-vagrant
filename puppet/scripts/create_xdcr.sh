@@ -25,6 +25,12 @@ curl -v -X POST -u admin:password http://localhost:8091/controller/createReplica
 -d replicationType=continuous \
 -d type=capi
 
+curl -v -X POST -u admin:password http://localhost:8091/controller/createReplication \
+-d fromBucket=serviceobjects \
+-d toCluster=serviolastic \
+-d toBucket=sodescriptions \
+-d replicationType=continuous \
+-d type=capi
 
 
 exit 0
