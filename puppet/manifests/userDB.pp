@@ -2,8 +2,8 @@
 file { '/opt/servioticy-vagrant/instance/userDB':
           ensure => directory,
           replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',
+          owner    => 'servioticy',
+          group    => 'servioticy',
           source => "/opt/servioticy-vagrant/puppet/files/userDB",
           recurse => remote,
           before     => Exec['run_userDB']
@@ -18,8 +18,8 @@ file { '/data/users.db':
 
 exec { 'run_userDB':
     require => [ Package['python-pip'], File['/opt/servioticy-vagrant/instance/userDB']],
-    user    => 'vagrant',
-    group    => 'vagrant',
+    user    => 'servioticy',
+    group    => 'servioticy',
     unless => "ps -fA | grep userDB | grep -v grep",
     cwd => "/data/userDB/",
     path => "/bin:/usr/bin/",
