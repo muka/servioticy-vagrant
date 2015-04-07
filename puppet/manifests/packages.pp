@@ -58,8 +58,8 @@ python::pip { 'simplejson' :
 #    before     => Exec['prepare_map_demo']
 }
 
-package { 'muka/servioticy-mgr':
-  ensure   => present,
-  provider => 'npm',
-  require => [Package['nodejs']]
-}
+#package { 'muka/servioticy-mgr#master':
+#  ensure   => present,
+#  provider => 'npm',
+#  require => [Package['nodejs']]
+#}

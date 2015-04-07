@@ -62,16 +62,16 @@ file { '/opt/servioticy-dispatcher/dispatcher-0.4.3-SNAPSHOT-jar-with-dependenci
           ensure => present,
           source => "/usr/src/servioticy/servioticy-dispatcher/target/dispatcher-0.4.3-SNAPSHOT-jar-with-dependencies.jar",
           require => [File['/opt/servioticy-dispatcher'],Exec['build_servioticy'],File['/opt/servioticy-dispatcher']],
-          owner => 'servioticy',
-          group => 'servioticy'
+          owner => 'root',
+          group => 'root'
 }
 
 file { '/opt/servioticy-dispatcher/dispatcher.xml':
           ensure => present,
           source => "/opt/servioticy-vagrant/puppet/files/dispatcher.xml",
           require => [File['/opt/servioticy-dispatcher'], Exec['build_servioticy'],File['/opt/servioticy-dispatcher']],
-          owner => 'servioticy',
-          group => 'servioticy'
+          owner => 'root',
+          group => 'root'
 }
 
 file { '/data/demo':

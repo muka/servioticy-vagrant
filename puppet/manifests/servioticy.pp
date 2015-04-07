@@ -6,8 +6,8 @@
 vcsrepo { "/usr/src/servioticy":
   ensure   => latest,
   provider => git,
-  owner    => 'servioticy',
-  group    => 'servioticy',
+  owner    => 'root',
+  group    => 'root',
   require  => [ Package["git"] ],
   source   => "https://github.com/servioticy/servioticy.git",
   revision => 'master',
@@ -17,7 +17,7 @@ class { "maven::maven":
 } ->
  # Setup a .mavenrc file for the specified user
 maven::environment { 'maven-env' :
-    user => 'servioticy',
+    user => 'root',
     # anything to add to MAVEN_OPTS in ~/.mavenrc
     maven_opts => '-Xmx1384m',       # anything to add to MAVEN_OPTS in ~/.mavenrc
     maven_path_additions => "",      # anything to add to the PATH in ~/.mavenrc
@@ -26,7 +26,7 @@ exec { "build_servioticy":
    cwd     => "/usr/src/servioticy",
    command => "git submodule update --init --recursive; mvn -Dmaven.test.skip=true package",
    path    => "/usr/local/bin/:/usr/bin:/bin/",
-   user    => 'servioticy',
+   user    => 'root',
    timeout => 0
 }
 

@@ -10,10 +10,10 @@ file { '/opt/servioticy-vagrant/instance/userDB':
 }
 
 # use a symlink to /data/users.db to allow external access to VM users.db
-file { '/data/users.db':
+file { '/data/userDB':
    ensure => 'link',
-   target => '/opt/servioticy-vagrant/instance/userDB/users.db',
-   require => [File['/opt/servioticy-vagrant/instance/userDB']]
+   target => '/opt/servioticy-vagrant/instance/userDB',
+   require => [ File['/opt/servioticy-vagrant/instance/userDB'], File['/data'] ]
 }
 
 exec { 'run_userDB':

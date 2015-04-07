@@ -29,6 +29,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.synced_folder "./", "/opt/servioticy-vagrant"
 
+  config.vm.synced_folder "/home/l/git/create-net/compose/servioticy-mgr", "/home/vagrant/servioticy-mgr"
+
+
   config.vm.provider :virtualbox do |vb|
     #vb.gui = true
 
@@ -41,8 +44,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #end
   end
 
-  config.vm.provision :shell, :inline => "sudo ln -s /vagrant /opt/servioticy-vagrant"
   config.vm.provision :shell, :path => "install_puppet.sh"
+  config.vm.provision :shell, :path => "prepare_env.sh"
 
   #puppet config
   config.vm.provision "puppet" do |puppet|

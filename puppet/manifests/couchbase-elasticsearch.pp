@@ -1,8 +1,8 @@
 vcsrepo { "/usr/src/couchbase-capi-server":
   ensure   => latest,
   provider => git,
-  owner    => 'servioticy',
-  group    => 'servioticy',
+  owner    => 'root',
+  group    => 'root',
   require  => [ Package["git"], Class['maven::maven'], Package['oracle-java7-installer'] ],
   source   => "https://github.com/couchbaselabs/couchbase-capi-server.git",
   revision => '3cbcfdff4a06e3f080eba3d4d7439f0bab5a834e',
@@ -11,13 +11,13 @@ exec { "build_couchbase_capi":
    cwd     => "/usr/src/couchbase-capi-server",
    command => "mvn install",
    path    => "/usr/local/bin/:/usr/bin:/bin/",
-   user    => 'servioticy'
+   user    => 'root'
 } ->
 vcsrepo { "/usr/src/elasticsearch-transport-couchbase":
   ensure   => latest,
   provider => git,
-  owner    => 'servioticy',
-  group    => 'servioticy',
+  owner    => 'root',
+  group    => 'root',
   require  => [ Package["git"], Class['maven::maven'], Package['oracle-java7-installer'] ],
   source   => "https://github.com/couchbaselabs/elasticsearch-transport-couchbase.git",
   revision => '83e588076e0a3df6fa61c0824256e6a00d08a081',
@@ -26,7 +26,7 @@ exec { "build_elasticsearch-transport-couchbase":
    cwd     => "/usr/src/elasticsearch-transport-couchbase",
    command => "mvn install",
    path    => "/usr/local/bin/:/usr/bin:/bin/",
-   user    => 'servioticy'
+   user    => 'root'
 }
 
 elasticsearch::plugin{ 'transport-couchbase':
