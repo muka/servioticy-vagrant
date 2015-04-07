@@ -10,7 +10,6 @@ exec{ 'stop-jetty':
   command => "/etc/init.d/jetty stop",
 }
 
-
 file { '/opt/jetty/start.ini':
   ensure => 'present',
   audit  => 'all',

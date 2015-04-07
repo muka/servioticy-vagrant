@@ -1,0 +1,14 @@
+nbproject
+.project
+.vagrant
+*.vdi
+*.dot
+servioticy/*
+broker/bridge/node_modules
+<<<<<<< HEAD
+puppet/dependency_graph/*.dot
+instance/*
+=======
+nbproject
+
+>>>>>>> upstream/security

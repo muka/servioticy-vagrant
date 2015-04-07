@@ -409,11 +409,11 @@ install_file() {
     "deb")
       info "installing with dpkg..."
       dpkg -i "$2"
-      apt-get update -yqq
+      apt-get update -y
       if test "$version" = 'latest'; then
-        apt-get install -yqq puppet-common puppet
+        apt-get install -y puppet-common puppet
       else
-        apt-get install -yqq puppet-common=$version-1puppetlabs1 puppet=$version-1puppetlabs1 --force-yes
+        apt-get install -y puppet-common=$version-1puppetlabs1 puppet=$version-1puppetlabs1 --force-yes
       fi
       ;;
     "solaris")

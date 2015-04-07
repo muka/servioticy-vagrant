@@ -1,4 +1,4 @@
-file { '/tmp/servioticy/':
+file { '/home/vagrant/downloads/':
   ensure => 'directory',
 }
 
@@ -58,9 +58,9 @@ file { '/opt/servioticy-dispatcher':
           group => 'servioticy'
 }
 
-file { '/opt/servioticy-dispatcher/dispatcher-0.4.3-SNAPSHOT-jar-with-dependencies.jar':
+file { '/opt/servioticy-dispatcher/dispatcher-0.4.3-security-SNAPSHOT-jar-with-dependencies.jar':
           ensure => present,
-          source => "/usr/src/servioticy/servioticy-dispatcher/target/dispatcher-0.4.3-SNAPSHOT-jar-with-dependencies.jar",
+          source => "/usr/src/servioticy/servioticy-dispatcher/target/dispatcher-0.4.3-security-SNAPSHOT-jar-with-dependencies.jar",
           require => [File['/opt/servioticy-dispatcher'],Exec['build_servioticy'],File['/opt/servioticy-dispatcher']],
           owner => 'root',
           group => 'root'
@@ -108,6 +108,12 @@ file { '/opt/jetty/webapps/root.war':
           require => Exec['build_servioticy']
 }
 
+file { '/var/lib/tomcat7/webapps/uaa.war':
+          ensure => present,
+          source => "/usr/src/cf-uaa/uaa/build/libs/cloudfoundry-identity-uaa-1.11.war",
+          require => [Exec['build-uaa'], Package['tomcat7']]
+}
+
 file { '/usr/bin/start-servioticy':
    ensure => 'link',
    target => '/opt/servioticy_scripts/startAll.sh',
@@ -120,6 +126,41 @@ file { '/usr/bin/stop-servioticy':
    target => '/opt/servioticy_scripts/stopAll.sh',
    require => File['/opt/servioticy_scripts'],
    mode => 755
+}
+
+
+file { '/opt/compose-idm':
+          ensure => 'directory',
+          owner => 'vagrant',
+          group => 'vagrant'
+} 
+
+
+file { '/opt/compose-idm/COMPOSEIdentityManagement-0.8.0.jar':
+          ensure => present,
+          source => "/usr/src/compose-idm/build/libs/COMPOSEIdentityManagement-0.8.0.jar",
+          require => [ Exec['compose-idm'], File['/opt/compose-idm'] ]
+}
+
+
+file { '/usr/src/compose-idm/src/main/resources/uaa.properties':
+          ensure => present,
+          source => "/vagrant/puppet/files/idm/uaa.properties",
+          require => [ File['/opt/compose-idm'] ]
+}
+
+
+
+file { '/tmp/mysql-server.response':
+          ensure => present,
+          source => "/vagrant/puppet/files/mysql-server.response",
+}
+
+
+file { '/usr/share/tomcat7/lib/mysql-connector-java-5.1.16.jar':
+          ensure => present,
+          source => "/usr/share/java/mysql-connector-java-5.1.16.jar",
+          require => Package['libmysql-java', 'tomcat7'],
 }
 
 file { '/home/vagrant/.bash_aliases':

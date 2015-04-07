@@ -15,3 +15,10 @@ Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin/
 #  type   => 'ext4',
 #  before => File['/data/couchbase']
 #}
+
+
+
+
+
+
+

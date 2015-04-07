@@ -4,9 +4,9 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
-#unless Vagrant.has_plugin?("vagrant-puppet-install")
-#  raise 'vagrant-puppet-install is not installed!'
-#end
+unless Vagrant.has_plugin?("vagrant-puppet-install")
+  raise 'vagrant-puppet-install is not installed!'
+end
 
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -27,23 +27,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # using a specific IP.
   config.vm.network :private_network, ip: "192.168.56.101"
 
-  config.vm.synced_folder "./", "/opt/servioticy-vagrant"
-
-  config.vm.synced_folder "/home/l/git/create-net/compose/servioticy-mgr", "/home/vagrant/servioticy-mgr"
-
-
   config.vm.provider :virtualbox do |vb|
     #vb.gui = true
 
-    vb.customize ["modifyvm", :id, "--memory", 1024 * 5 + 512 ]
-    vb.customize ["modifyvm", :id, "--cpus", "4"]
+    vb.customize ["modifyvm", :id, "--memory", 4096 ]
+    vb.customize ["modifyvm", :id, "--cpus", 4]
 
     #unless File.exist?("./datadisk.vdi")
     #  vb.customize ['createhd', '--filename', './datadisk.vdi', '--size', 2 * 1024]
     #  vb.customize ['storageattach', :id, '--storagectl', "SATA Controller", '--port', 1, '--device', 0, '--type', 'hdd', '--medium', './datadisk.vdi' ]
     #end
   end
-
+  
+  #config.vm.provision :shell, :inline => "sudo apt-get update && sudo apt-get install puppet -y"
   config.vm.provision :shell, :path => "install_puppet.sh"
   config.vm.provision :shell, :path => "prepare_env.sh"
 

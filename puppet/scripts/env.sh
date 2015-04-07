@@ -15,6 +15,7 @@ export DISPATCHER_HOME=$ROOT/servioticy-dispatcher
 export API_HOME=$ROOT/jetty
 export USERDB_HOME=$DATA/userDB
 export ELASTICSEARCH_HOME=$ROOT/elasticsearch
+export IDM_HOME=/opt/compose-idm
 export DEMO_HOME=$DATA/demo/map
 
 export CB_STATUS_FILE=/tmp/cb.status

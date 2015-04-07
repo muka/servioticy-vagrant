@@ -13,7 +13,7 @@ exec { 'apt-get update':
 exec {
     'set-licence-selected':
       command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections';
-
+ 
     'set-licence-seen':
       command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections';
 }
@@ -58,8 +58,9 @@ python::pip { 'simplejson' :
 #    before     => Exec['prepare_map_demo']
 }
 
-#package { 'muka/servioticy-mgr#master':
-#  ensure   => present,
-#  provider => 'npm',
-#  require => [Package['nodejs']]
-#}
+
+package {'mysql-server-5.5':
+  ensure => present,
+  responsefile=>'/tmp/mysql-server.response',
+  require=> [File['/tmp/mysql-server.response'],Exec['apt-get update']],
+}

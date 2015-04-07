@@ -21,7 +21,15 @@ maven::environment { 'maven-env' :
     # anything to add to MAVEN_OPTS in ~/.mavenrc
     maven_opts => '-Xmx1384m',       # anything to add to MAVEN_OPTS in ~/.mavenrc
     maven_path_additions => "",      # anything to add to the PATH in ~/.mavenrc
-} ->
+} -> 
+exec { "build_rhinomod":
+   cwd     => "/usr/src/servioticy/servioticy-dispatcher",
+   command => "bash unmanaged-dependencies.sh",
+   path    => "/usr/local/bin/:/usr/bin:/bin/:/usr/src/servioticy/servioticy-dispatcher",
+   user    => 'servioticy',
+   require => Package['ant'],
+   timeout => 0
+} -> 
 exec { "build_servioticy":
    cwd     => "/usr/src/servioticy",
    command => "git submodule update --init --recursive; mvn -Dmaven.test.skip=true package",
@@ -38,7 +46,6 @@ exec { "build_servioticy":
 #    command => "sh create_all.sh",
 #    require => [ Package['python-pip'], File['/data/demo'], Package['couchbase-server'],  Package['couchbase'], Exec['create-xdcr'], Exec['wait for api'], Exec['run_kestrel'], Exec['run_storm'] ],
 #}
-
 
 #exec{ 'stop_all':
 #    user    => 'servioticy',
