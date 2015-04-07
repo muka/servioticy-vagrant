@@ -1,8 +1,8 @@
 vcsrepo { "/usr/src/cf-uaa":
   ensure   => latest,
   provider => git,
-  owner    => 'vagrant',
-  group    => 'vagrant',
+  owner    => 'root',
+  group    => 'root',
   require  => [ Package["git"], Class['maven::maven'], Package['oracle-java7-installer'], Package['curl'], Package['unzip'] ],
   source   => "git://github.com/cloudfoundry/uaa.git",
   revision => '9156eed2dcc13d8aa1198523d5ce3876e3fe61d7',
@@ -37,8 +37,8 @@ exec { "build-uaa":
     cwd => "/usr/src/cf-uaa",
     require => [ Package['tomcat7'], Class['gradle'] ],
     command => "gradle :cloudfoundry-identity-uaa:war",
-    user    => 'vagrant',
-    group    => 'vagrant',    
+    user    => 'root',
+    group    => 'root',    
 } 
 
 

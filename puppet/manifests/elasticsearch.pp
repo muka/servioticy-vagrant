@@ -44,15 +44,15 @@ vcsrepo { "/opt/servioticy-indices":
   require  => [ Package["git"] ],
   source   => "https://github.com/servioticy/servioticy-elasticsearch-indices.git",
   revision => 'master',
-  before   => [Exec['create-indices'], Exec['create-xdcr']]
+#  before   => [Exec['create-indices'], Exec['create-xdcr']]
 } 
 
-exec {
-    'create-indices':
-      command => 'sleep 10 && /bin/sh create_soupdates.sh; /bin/sh create_subscriptions.sh',
-      cwd => "/opt/servioticy-indices",
-      path =>  "/usr/local/bin/:/bin/:/usr/bin/",          
-} 
+#exec {
+#    'create-indices':
+#      command => 'sleep 10 && /bin/sh create_soupdates.sh; /bin/sh create_subscriptions.sh',
+#      cwd => "/opt/servioticy-indices",
+#      path =>  "/usr/local/bin/:/bin/:/usr/bin/",          
+#} 
 
 elasticsearch::plugin{ 'mobz/elasticsearch-head':
   module_dir => 'head',

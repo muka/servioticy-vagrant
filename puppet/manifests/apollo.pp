@@ -56,8 +56,8 @@ file { '/opt/servibroker/etc/groups.properties':
 
 #exec { 'run_broker':
 #    require => [ Package['oracle-java7-installer'], File['/opt/servibroker/etc/apollo.xml'], File['/opt/servibroker/etc/users.properties'], File['/opt/servibroker/etc/groups.properties']],
-#    user    => 'vagrant',
-#    group    => 'vagrant',
+#    user    => 'servioticy',
+#    group    => 'servioticy',
 #    unless => "ps -fA | grep apollo | grep -v grep",          
 #    cwd => "/opt/servibroker/bin/",
 #    path => "/bin:/usr/bin/:/opt/servibroker/bin/",
