@@ -28,13 +28,13 @@ Now you can start or stop the servioticy services by running:
 
 ##Running on a standalone dev server
 
-***Ensure that this repository is available under `/opt` before launching ***
-
-Install the software components on a running machine. 
+Install the software components on a running machine.
 
 It will create a user `servioticy` with password `servioticy` and install all the required packages in `/opt`
 
 `sudo ./puppet-standalone.sh`
+
+** Backup your system before proceeding as some operation may result in data loss **
 
 ##Notes
 
