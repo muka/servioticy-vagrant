@@ -6,10 +6,10 @@
 # 0.0.1a - Here Be Dragons
 #
 
-if [ -x "$(command -v puppet)" ]; then
-    echo 'puppet is already installed.' >&2
-    exit 0;
-fi
+#if [ -x "$(command -v puppet)" ]; then
+#    echo 'puppet is already installed.' >&2
+#    exit 0;
+#fi
 
 
 # Set up colours
