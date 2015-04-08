@@ -11,7 +11,8 @@ exec { "build_couchbase_capi":
    cwd     => "/usr/src/couchbase-capi-server",
    command => "mvn install",
    path    => "/usr/local/bin/:/usr/bin:/bin/",
-   user    => 'root'
+   user    => 'root',
+   require => [ Exec["build_servioticy"] ]
 } ->
 vcsrepo { "/usr/src/elasticsearch-transport-couchbase":
   ensure   => latest,
@@ -26,7 +27,8 @@ exec { "build_elasticsearch-transport-couchbase":
    cwd     => "/usr/src/elasticsearch-transport-couchbase",
    command => "mvn install",
    path    => "/usr/local/bin/:/usr/bin:/bin/",
-   user    => 'root'
+   user    => 'root',
+   require => [ Exec["build_servioticy"] ]
 }
 
 elasticsearch::plugin{ 'transport-couchbase':

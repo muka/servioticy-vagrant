@@ -1,4 +1,12 @@
 
+file { '/opt/servioticy-vagrant/instance':
+          ensure    => 'directory',
+          owner     => 'servioticy',
+          group     => 'servioticy',
+          before    => File['/opt/servioticy-vagrant/instance/userDB'],
+          require   => [ Vcsrepo["/opt/servioticy-vagrant"] ],
+}
+
 file { '/opt/servioticy-vagrant/instance/userDB':
           ensure => directory,
           replace => true,
@@ -7,7 +15,7 @@ file { '/opt/servioticy-vagrant/instance/userDB':
           source => "/opt/servioticy-vagrant/puppet/files/userDB",
           recurse => remote,
           require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
-          before     => Exec['run_userDB']
+          before     => [ Exec['run_userDB'] ]
 }
 
 # use a symlink to /data/users.db to allow external access to VM users.db

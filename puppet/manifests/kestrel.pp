@@ -14,10 +14,11 @@ file { '/opt/kestrel-2.4.1':
   group    => 'servioticy'
 } ->
 file { '/opt/kestrel-2.4.1/config/servioticy_queues.scala':
-          ensure => present,
-          source => "/opt/servioticy-vagrant/puppet/files/servioticy_queues.scala",
-          owner    => 'servioticy',
-          group    => 'servioticy',
+    ensure    => present,
+    source    => "/opt/servioticy-vagrant/puppet/files/servioticy_queues.scala",
+    owner     => 'servioticy',
+    group     => 'servioticy',
+    require   => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }
 #->
 #exec { "run_kestrel":

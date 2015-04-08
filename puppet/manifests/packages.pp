@@ -5,9 +5,13 @@ vcsrepo { "/opt/servioticy-vagrant":
   owner    => 'servioticy',
   group    => 'servioticy',
   require  => [ User["servioticy_user"], Package["git"] ],
-  source   => "https://github.com/servioticy/servioticy-vagrant.git",
-# revision => 'master'
-  revision => 'security'
+
+#  source   => "https://github.com/servioticy/servioticy-vagrant.git",
+#  revision => 'security',
+
+  source   => "https://github.com/muka/servioticy-vagrant.git",
+  revision => 'security2',
+
 }
 
 apt::ppa { 'ppa:webupd8team/java':
@@ -73,11 +77,6 @@ package {'mysql-server-5.5':
   ensure => present,
   responsefile => '/opt/servioticy-vagrant/puppet/files/mysql-server.response',
   require => [ Exec['apt-get update'], Vcsrepo["/opt/servioticy-vagrant"] ],
-}
-
-package { 'muka/servioticy-mgr':
-  provider => 'npm',
-  require  => [ Package['nodejs'], User['servioticy_user'] ]
 }
 
 #exec { "servioticy_start":
