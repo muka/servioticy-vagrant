@@ -39,6 +39,7 @@ file { '/etc/tomcat7/server.xml':
           group    => 'tomcat7',
           before => Package['tomcat7'],
           source => "/opt/servioticy-vagrant/puppet/files/server.xml",
+          require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }
 
 
@@ -46,74 +47,80 @@ file { '/etc/tomcat7/server.xml':
 file { '/home/servioticy/LICENSE.txt':
           ensure => present,
           replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',
+          owner    => 'servioticy',
+          group    => 'servioticy',
           source => "/opt/servioticy-vagrant/puppet/files/other/LICENSE.txt",
+          require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }
 
 file { '/home/servioticy/README.txt':
           ensure => present,
           replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',
+          owner    => 'servioticy',
+          group    => 'servioticy',
           source => "/opt/servioticy-vagrant/puppet/files/other/README.txt",
+          require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }
 
 file { '/home/servioticy/README.demos.txt':
           ensure => present,
           replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',
+          owner    => 'servioticy',
+          group    => 'servioticy',
           source => "/opt/servioticy-vagrant/puppet/files/other/README.demos.txt",
+          require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }
 
 file { '/home/servioticy/VERSION.txt':
           ensure => present,
           replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',
+          owner    => 'servioticy',
+          group    => 'servioticy',
           source => "/opt/servioticy-vagrant/puppet/files/other/VERSION.txt",
+          require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }
 
 file { '/opt/servioticy-dispatcher':
           ensure => 'directory',
-          owner => 'vagrant',
-          group => 'vagrant'
+          owner => 'servioticy',
+          group => 'servioticy'
 }
 
 file { '/opt/servioticy-dispatcher/dispatcher-0.4.3-security-SNAPSHOT-jar-with-dependencies.jar':
           ensure => present,
           source => "/usr/src/servioticy/servioticy-dispatcher/target/dispatcher-0.4.3-security-SNAPSHOT-jar-with-dependencies.jar",
           require => [File['/opt/servioticy-dispatcher'],Exec['build_servioticy'],File['/opt/servioticy-dispatcher']],
-          owner => 'vagrant',
-          group => 'vagrant'
+          owner => 'servioticy',
+          group => 'servioticy'
 }
 
 file { '/opt/servioticy-dispatcher/dispatcher.xml':
           ensure => present,
           source => "/opt/servioticy-vagrant/puppet/files/dispatcher.xml",
-          require => [File['/opt/servioticy-dispatcher'], Exec['build_servioticy'],File['/opt/servioticy-dispatcher']],
-          owner => 'vagrant',
-          group => 'vagrant'
+          owner => 'servioticy',
+          group => 'servioticy',
+          require => [File['/opt/servioticy-dispatcher'], Exec['build_servioticy'],Vcsrepo["/opt/servioticy-vagrant"]],
 }
 
 file { '/data/demo':
           ensure => directory,
           replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',
+          owner    => 'servioticy',
+          group    => 'servioticy',
           source => "/opt/servioticy-vagrant/puppet/files/demo",
-          recurse => remote
+          recurse => remote,
+          require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }
 
 
 file { '/opt/servioticy_scripts':
           ensure => directory,
           replace => true,
-          owner    => 'vagrant',
-          group    => 'vagrant',
+          owner    => 'servioticy',
+          group    => 'servioticy',
           source => "/opt/servioticy-vagrant/puppet/scripts",
-          recurse => remote
+          recurse => remote,
+          require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }
 
 
@@ -171,8 +178,8 @@ file { '/usr/bin/stop-servioticy':
 
 file { '/opt/compose-idm':
           ensure => 'directory',
-          owner => 'vagrant',
-          group => 'vagrant'
+          owner => 'servioticy',
+          group => 'servioticy'
 }
 
 
@@ -186,7 +193,7 @@ file { '/opt/compose-idm/COMPOSEIdentityManagement-0.8.0.jar':
 file { '/usr/src/compose-idm/src/main/resources/uaa.properties':
           ensure => present,
           source => "/opt/servioticy-vagrant/puppet/files/idm/uaa.properties",
-          require => [ File['/opt/compose-idm'] ]
+          require => [ File['/opt/compose-idm'], Vcsrepo["/opt/servioticy-vagrant"] ],
 }
 
 
@@ -194,6 +201,7 @@ file { '/usr/src/compose-idm/src/main/resources/uaa.properties':
 file { '/tmp/mysql-server.response':
           ensure => present,
           source => "/opt/servioticy-vagrant/puppet/files/mysql-server.response",
+          require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }
 
 
@@ -206,4 +214,5 @@ file { '/usr/share/tomcat7/lib/mysql-connector-java-5.1.16.jar':
 file { '/home/servioticy/.bash_aliases':
    ensure => 'link',
    target => '/opt/servioticy-vagrant/puppet/scripts/env.sh',
+   require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }

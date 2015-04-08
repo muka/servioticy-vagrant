@@ -6,6 +6,7 @@ file { '/opt/servioticy-vagrant/instance/userDB':
           group    => 'servioticy',
           source => "/opt/servioticy-vagrant/puppet/files/userDB",
           recurse => remote,
+          require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
           before     => Exec['run_userDB']
 }
 
