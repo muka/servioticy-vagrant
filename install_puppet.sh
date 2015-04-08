@@ -6,6 +6,12 @@
 # 0.0.1a - Here Be Dragons
 #
 
+if [ -x "$(command -v puppet)" ]; then
+    echo 'puppet is already installed.' >&2
+    exit 0;
+fi
+
+
 # Set up colours
 if tty -s;then
     RED=${RED:-$(tput setaf 1)}
@@ -106,7 +112,7 @@ elif test -f "/etc/redhat-release"; then
   #If /etc/redhat-release exists, we act like RHEL by default. Except for fedora
   if test "$platform" = "fedora"; then
     platform="fedora"
-  else 
+  else
     platform="el"
   fi
 elif test -f "/etc/system-release"; then

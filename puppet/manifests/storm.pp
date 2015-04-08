@@ -2,11 +2,11 @@ archive { 'apache-storm-0.9.2':
   ensure => present,
   follow_redirects => true,
   checksum => false,
-  url    => 'http://ftp.cixug.es/apache/incubator/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.tar.gz',
+  url    => 'http://www.eu.apache.org/dist/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.tar.gz',
   target => '/opt',
+  timeout => 0,
   src_target => '/tmp/servioticy',
-  user => 'servioticy',
-  require  => [ Package["curl"], File['/tmp/servioticy/'] ],
+  require  => [ Package["curl"], File['/tmp/servioticy/'], User['servioticy_user'] ],
 }
 
 #exec { "run_storm":

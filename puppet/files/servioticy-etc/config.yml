@@ -1,0 +1,49 @@
+
+#paths to configuration files
+paths:
+    defaultQueue: default.xml
+    defaultActions: defaultActions.xml
+    reputationq: reputationq.xml
+    dispatcher: dispatcher.xml
+
+couchbase:
+
+    # Configure uris for Couchbase configuration
+    public_uris: http://servioticy.local:8091/pools
+    private_uris: http://servioticy.local:8091/pools
+
+    # Configure couchbase bucket name
+    so_bucket: serviceobjects
+    updates_bucket: soupdates
+    subscriptions_bucket: subscriptions
+    actuations_bucket: actuations
+    private_bucket: privatebucket
+
+auth:
+
+    # define the type of auth
+    # token, idm, sqlite
+    type: sqlite
+
+    # Configure sqlitedb for initial user management (TO DEPRECATE)
+    sqlitedb: jdbc:sqlite:/data/userDB/users.db
+
+    token_url: http://auth.iotango.local/api/token
+
+    # Configure security
+    idm_host: 127.0.0.1
+    idm_port: 8082
+    idm_user: composecontroller
+    idm_password: composecontrollerpassword
+
+elasticsearch:
+    elastic_cluster: serviolastic
+    # connection type, may be node or transport
+    type: transport
+    # Example: 172.20.11.4,172.20.11.3
+    search_servers: 127.0.0.1
+    # Example: 9300-9400
+    search_ports: 9300-9400
+    transport_server: servioticy.local
+    transport_port: 9300
+

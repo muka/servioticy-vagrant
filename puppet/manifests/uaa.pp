@@ -10,7 +10,7 @@ vcsrepo { "/usr/src/cf-uaa":
 yaml_setting { 'classname':
  target => '/usr/src/cf-uaa/uaa/src/main/resources/uaa.yml',
  key    => 'database/driverClassName',
- value  => 'com.mysql.jdbc.Driver', 
+ value  => 'com.mysql.jdbc.Driver',
 } ->
 yaml_setting { 'url':
  target => '/usr/src/cf-uaa/uaa/src/main/resources/uaa.yml',
@@ -38,10 +38,8 @@ exec { "build-uaa":
     require => [ Package['tomcat7'], Class['gradle'] ],
     command => "gradle :cloudfoundry-identity-uaa:war",
     user    => 'root',
-    group    => 'root',    
-} 
-
-
+    group    => 'root',
+}
 
 
 #database:

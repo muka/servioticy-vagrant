@@ -88,7 +88,7 @@ file { '/opt/servioticy-dispatcher':
 
 file { '/opt/servioticy-dispatcher/dispatcher-0.4.3-security-SNAPSHOT-jar-with-dependencies.jar':
           ensure => present,
-          source => "/usr/src/servioticy/servioticy-dispatcher/target/dispatcher-0.4.3-security-SNAPSHOT-jar-with-dependencies.jar",
+          source => "/usr/src/servioticy/servioticy-dispatcher/target/dispatcher-0.4.3-SNAPSHOT-jar-with-dependencies.jar",
           require => [File['/opt/servioticy-dispatcher'],Exec['build_servioticy'],File['/opt/servioticy-dispatcher']],
           owner => 'servioticy',
           group => 'servioticy'
@@ -123,6 +123,16 @@ file { '/opt/servioticy_scripts':
           require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }
 
+file { '/etc/servioticy':
+          ensure => directory,
+          replace => true,
+          owner    => 'root',
+          group    => 'root',
+          source => "/opt/servioticy-vagrant/puppet/files/servioticy-etc",
+          recurse => remote,
+          require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
+}
+
 
 file { '/opt/jetty/webapps/private.war':
           ensure => present,
@@ -153,7 +163,6 @@ package {'tomcat7':
   ensure => present,
   require=> [ Package['oracle-java7-installer'],Exec['apt-get update'] ],
 }
-
 
 file { '/var/lib/tomcat7/webapps/uaa.war':
           ensure => present,
@@ -196,19 +205,16 @@ file { '/usr/src/compose-idm/src/main/resources/uaa.properties':
           require => [ File['/opt/compose-idm'], Vcsrepo["/opt/servioticy-vagrant"] ],
 }
 
-
-
 file { '/tmp/mysql-server.response':
           ensure => present,
           source => "/opt/servioticy-vagrant/puppet/files/mysql-server.response",
           require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }
 
-
-file { '/usr/share/tomcat7/lib/mysql-connector-java-5.1.16.jar':
+file { '/usr/share/tomcat7/lib/mysql-connector-java-5.1.28.jar':
           ensure => present,
-          source => "/usr/share/java/mysql-connector-java-5.1.16.jar",
-          require => Package['libmysql-java', 'tomcat7'],
+          source => "/usr/share/java/mysql-connector-java-5.1.28.jar",
+          require => [ Package['libmysql-java'], Package['tomcat7'] ],
 }
 
 file { '/home/servioticy/.bash_aliases':
@@ -216,3 +222,4 @@ file { '/home/servioticy/.bash_aliases':
    target => '/opt/servioticy-vagrant/puppet/scripts/env.sh',
    require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }
+
