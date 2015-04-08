@@ -75,8 +75,10 @@ package {'mysql-server-5.5':
   require=> [File['/tmp/mysql-server.response'],Exec['apt-get update']],
 }
 
-package { 'muka/servioticy-mgr':
-  ensure   => present,
+package { 'servioticy cli':
+  user     => 'servioticy',
+  package  => 'servioticy-mgr',
+  source   => 'muka/servioticy-mgr',
   provider => 'npm',
-  require => [Package['nodejs']]
+  require  => [Package['nodejs']]
 }

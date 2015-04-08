@@ -5,6 +5,7 @@ archive { 'apache-storm-0.9.2':
   url    => 'http://ftp.cixug.es/apache/incubator/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.tar.gz',
   target => '/opt',
   src_target => '/tmp/servioticy',
+  user => 'servioticy',
   require  => [ Package["curl"], File['/tmp/servioticy/'] ],
 }
 
