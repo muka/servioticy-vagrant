@@ -14,10 +14,10 @@ file { '/data/couchbase':
 }
 
 file { '/opt/apache-storm-0.9.2-incubating':
-          ensure => 'directory',
-          owner => 'vagrant',
-          group => 'vagrant',
-#          before => Exec['run_storm']
+    ensure => 'directory',
+    owner => 'servioticy',
+    group => 'servioticy',
+#   before => Exec['run_storm']
 }
 
 group { "tomcat7":
