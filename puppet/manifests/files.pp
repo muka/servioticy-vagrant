@@ -223,3 +223,10 @@ file { '/home/servioticy/.bash_aliases':
    require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }
 
+file { '/etc/servioticy':
+    ensure => present,
+    owner => 'root',
+    group => 'root'
+    source => "/opt/servioticy-vagrant/puppet/files/servioticy-etc",
+    require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
+}
