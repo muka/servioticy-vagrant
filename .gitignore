@@ -7,3 +7,4 @@ servioticy/*
 broker/bridge/node_modules
 puppet/dependency_graph/*.dot
 instance/*
+puppet-provision.log

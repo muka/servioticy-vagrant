@@ -1,3 +1,4 @@
+
 vcsrepo { "/usr/src/compose-idm":
   ensure   => latest,
   provider => git,

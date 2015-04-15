@@ -123,16 +123,6 @@ file { '/opt/servioticy_scripts':
           require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }
 
-file { '/etc/servioticy':
-          ensure => directory,
-          replace => true,
-          owner    => 'root',
-          group    => 'root',
-          source => "/opt/servioticy-vagrant/puppet/files/servioticy-etc",
-          recurse => remote,
-          require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
-}
-
 
 file { '/opt/jetty/webapps/private.war':
           ensure => present,
@@ -224,9 +214,11 @@ file { '/home/servioticy/.bash_aliases':
 }
 
 file { '/etc/servioticy':
-    ensure => present,
-    owner => 'root',
-    group => 'root'
+    ensure => directory,
+    replace => true,
+    owner    => 'root',
+    group    => 'root',
     source => "/opt/servioticy-vagrant/puppet/files/servioticy-etc",
+    recurse => remote,
     require => [ Vcsrepo["/opt/servioticy-vagrant"] ],
 }

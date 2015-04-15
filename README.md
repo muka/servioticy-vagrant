@@ -6,6 +6,7 @@ Puppet is used to setup and launch all the needed components to run the servioti
 
 ##Requirements
 * Vagrant 1.6 or newwer is necessary (see vagrantup.com for more information)
+* vagrant-puppet-install plugin (`vagrant plugin install vagrant-puppet-install` to install)
 
 ##Running  the instance
 
@@ -25,6 +26,15 @@ You can then login into the instance running:
 Now you can start or stop the servioticy services by running:
 
 `start-servioticy` and `stop-servioticy`
+
+or alternatively
+
+`sudo servioticy start`
+
+`sudo servioticy stop`
+
+`sudo servioticy restart`
+
 
 ##Running on a standalone dev server
 
