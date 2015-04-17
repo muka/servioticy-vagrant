@@ -2,7 +2,7 @@ class servioticy::params {
 
     $user = "servioticy"
     
-    ${servioticy::params::installdir}     = "/opt"
+    $installdir     = "/opt"
     $srcdir         = "/usr/src"
     $datadir        = "/data"
     $downloaddir    = "/tmp/servioticy"

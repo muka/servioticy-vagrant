@@ -1,4 +1,4 @@
 
-node "servioticy" {
+node default {
     include servioticy
 }

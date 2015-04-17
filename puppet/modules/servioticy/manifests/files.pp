@@ -44,8 +44,7 @@ class servioticy::files {
         ensure => "link",
         target => "${servioticy::params::vagrantdir}/puppet/scripts/env.sh",
         require => Class["servioticy::packages"],
-    }
-
+    } ->
     file { "/etc/servioticy":
         ensure => directory,
         replace => true,
@@ -53,8 +52,7 @@ class servioticy::files {
         group    => "root",
         source => "${servioticy::params::vagrantdir}/puppet/files/servioticy-etc",
         recurse => remote,
-    }
-
+    } ->
     file { "datadir" :
         path => $servioticy::params::datadir,
         ensure => "directory",
@@ -68,8 +66,7 @@ class servioticy::files {
         source => "${servioticy::params::vagrantdir}/puppet/files/demo",
         recurse => remote,
         require => Class["servioticy::packages"],
-    }
-
+    } ->
     file { "installdir/servioticy-dispatcher":
         path => "${servioticy::params::installdir}/servioticy-dispatcher",
         ensure => "directory",
@@ -113,31 +110,21 @@ class servioticy::files {
         target => "${servioticy::params::installdir}/servioticy_scripts/startAll.sh",
         require => File["installdir/servioticy_scripts"],
         mode => 755
-    }
-
+    } ->
     file { "/usr/bin/stop-servioticy":
         ensure => "link",
         target => "${servioticy::params::installdir}/servioticy_scripts/stopAll.sh",
         require => File["installdir/servioticy_scripts"],
         mode => 755
-    }
-
+    } ->
     file { "/tmp/mysql-server.response":
         ensure => present,
         source => "${servioticy::params::vagrantdir}/puppet/files/mysql-server.response",
-        require => Class[ "servioticy::packages" ]
-    }
-
+    } ->
     file { "/usr/share/tomcat7/lib/mysql_connector_jar":
         path => "/usr/share/tomcat7/lib/$mysql_connector_jar",
         ensure => present,
         source => "/usr/share/java/${mysql_connector}_jar",
-        require => Class["servioticy::packages"],
-    } ->
-    file { "/var/lib/tomcat7/webapps/uaa.war":
-        ensure => present,
-        source => "$srcdir/cf-uaa/uaa/build/libs/cloudfoundry-identity-uaa-1.11.war",
-        require => Class["servioticy::uaa"]
     }
 
 }

@@ -9,24 +9,6 @@ class servioticy::packages {
         before => Exec["apt-get update"]
     }
 
-    package { ["oracle-java7-installer", "curl", "unzip", "nano", "vim", "make", "g++", "git"]:
-        ensure => present,
-        require => Exec["apt-get update", "set-licence-selected", "set-licence-seen"],
-    }
-
-    package { "git":
-        ensure => present,
-        before => vcsrepo["vagrantdir"],
-    }
-
-    class { "python" :
-        version    => "system",
-        pip        => true,
-        dev        => false,
-        virtualenv => true,
-        gunicorn   => false    
-    }
-
     exec { "apt-get update":
         path => "/usr/bin"
     }
@@ -39,41 +21,9 @@ class servioticy::packages {
             command => "/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections";
     }
 
-    package { "couchbase":
-        ensure   => present,
-        provider => "npm",
-        require => [Package["nodejs"], Package["make"], Package["g++"]]
-    }
-
-    package { "stompjs":
-        ensure   => present,
-        provider => "npm",
-        require => [Package["nodejs"]]
-    }
-
-    package { ["nodejs"]:
+    package { ["oracle-java7-installer", "curl", "unzip", "nano", "vim", "make", "g++", "git"]:
         ensure => present,
-        require => [Exec["apt-get update"], Package["g++"]]
-    }
-
-    package { "forever":
-        ensure   => present,
-        provider => "npm",
-        require => [Package["nodejs"]]
-    }
-
-    python::pip { "Flask" :
-        pkgname       => "Flask",
-    }
-
-    python::pip { "simplejson" :
-        pkgname       => "simplejson",
-    }
-
-    package {"mysql-server-5.5":
-        ensure => present,
-        responsefile => "${servioticy::params::vagrantdir}/puppet/files/mysql-server.response",
-        require => [ Exec["apt-get update"], Vcsrepo["vagrantdir"] ],
+        require => Exec["apt-get update", "set-licence-selected", "set-licence-seen"],
     }
 
     vcsrepo { "vagrantdir":
@@ -82,9 +32,50 @@ class servioticy::packages {
         provider => git,
         owner    => $user,
         group    => $user,
-        require  => Class["servioticy::user"],
+        require  => [Class["servioticy::setup"], Package["git"]],
         source   => $git_vagrant_src,
         revision => $git_vagrant_revision,
+    }
+
+    class { "python" :
+        version    => "system",
+        pip        => true,
+        dev        => false,
+        virtualenv => true,
+        gunicorn   => false    
+    } 
+
+    python::pip { "Flask" :
+        pkgname       => "Flask",
+    } 
+    python::pip { "simplejson" :
+        pkgname       => "simplejson",
+    }
+
+    package { ["nodejs"]:
+        ensure => present,
+        require => [Exec["apt-get update"], Package["g++", "make"]]
+    }
+    package { "couchbase":
+        ensure   => present,
+        provider => "npm",
+        require => [Package["nodejs"], Package["make"], Package["g++"]]
+    } 
+    package { "stompjs":
+        ensure   => present,
+        provider => "npm",
+        require => [Package["nodejs"]]
+    } 
+    package { "forever":
+        ensure   => present,
+        provider => "npm",
+        require => [Package["nodejs"]]
+    }
+
+    package {"mysql-server-5.5":
+        ensure => present,
+        responsefile => "${servioticy::params::vagrantdir}/puppet/files/mysql-server.response",
+        require => [ Exec["apt-get update"], Vcsrepo["vagrantdir"] ],
     }
 
     package {"ant":

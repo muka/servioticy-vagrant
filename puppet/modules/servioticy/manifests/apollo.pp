@@ -7,8 +7,8 @@ class servioticy::apollo {
         follow_redirects => true,
         checksum => false,
         url    => $apollo_src,
-        target => ${servioticy::params::installdir},
-        src_target => ${servioticy::params::downloaddir},
+        target => $servioticy::params::installdir,
+        src_target => $servioticy::params::downloaddir,
         require  => Class["servioticy::packages"],
         timeout => 0
     } ->

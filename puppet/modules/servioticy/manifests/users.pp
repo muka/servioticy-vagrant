@@ -1,4 +1,4 @@
-class servioticy::user {
+class servioticy::users {
 
     include servioticy::params
 
@@ -13,8 +13,7 @@ class servioticy::user {
         managehome => "true",
         password => "$1$D55RTbl1$UnXplGcyAd2T7fhxSM4ks.",
         require => [ Group["servioticy_gid"] ]
-    }
-
+    } ->
     group { "tomcat7_gid":
         name => "tomcat7",
         ensure => present,

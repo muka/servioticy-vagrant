@@ -49,5 +49,9 @@ class servioticy::uaa {
         path => "$srcdir/compose-idm/src/main/resources/uaa.properties",
         ensure => present,
         source => "${servioticy::params::vagrantdir}/puppet/files/idm/uaa.properties",
+    } ->
+    file { "/var/lib/tomcat7/webapps/uaa.war":
+        ensure => present,
+        source => "$srcdir/cf-uaa/uaa/build/libs/cloudfoundry-identity-uaa-1.11.war",
     }
 }

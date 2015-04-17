@@ -6,11 +6,7 @@ class servioticy {
     }  
 
     include servioticy::params
-    
     include servioticy::setup
-    include servioticy::files
-    include servioticy::user
-    include servioticy::packages
 
     include servioticy::apollo
     include servioticy::bridge
@@ -20,6 +16,7 @@ class servioticy {
     include servioticy::couchbase
     include servioticy::es
     include servioticy::couchbase-elasticsearch
+
     include servioticy::service_manager
     include servioticy::uaa
     include servioticy::security
