@@ -4,11 +4,6 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
-unless Vagrant.has_plugin?("vagrant-puppet-install")
-  raise 'vagrant-puppet-install is not installed!'
-end
-
-
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
@@ -37,16 +32,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #  vb.customize ['createhd', '--filename', './datadisk.vdi', '--size', 2 * 1024]
     #  vb.customize ['storageattach', :id, '--storagectl', "SATA Controller", '--port', 1, '--device', 0, '--type', 'hdd', '--medium', './datadisk.vdi' ]
     #end
+
   end
   
-  #config.vm.provision :shell, :inline => "sudo apt-get update && sudo apt-get install puppet -y"
-  config.vm.provision :shell, :path => "install_puppet.sh"
   config.vm.provision :shell, :path => "prepare_env.sh"
 
   #puppet config
   config.vm.provision "puppet" do |puppet|
     puppet.module_path = "puppet/modules"
-    puppet.manifests_path = "puppet/manifests"
+    puppet.manifests_path = "puppet/manifests/"
     puppet.manifest_file = "."
     puppet.options = "--environment dev --graph --graphdir /vagrant/puppet/dependency_graph --logdest /vagrant/puppet-provision.log"
   end
