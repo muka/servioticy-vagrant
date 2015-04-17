@@ -1,16 +1,14 @@
-vcsrepo { "/opt/servioticy-composer":
-  ensure   => latest,
-  provider => git,
-  owner    => 'servioticy',
-  group    => 'servioticy',
-  require  => [ Package["git"], Package['forever'] ],
-  source   => "https://github.com/servioticy/servioticy-composer.git",
-  revision => 'vagrant',
+class servioticy::composer {
+
+    include servioticy::params
+
+    vcsrepo { "$installdir/servioticy-composer":
+        ensure   => latest,
+        provider => git,
+        owner    => $user,
+        group    => $user,
+        require  => Class["servioticy::packages"],
+        source   => $git_composer_url,
+        revision => $git_composer_revision,
+    }
 }
-#->
-#exec { "run_composer":
-#  command => "forever start -a --sourceDir /opt/servioticy-composer -l /tmp/forever_red.log -o /tmp/nodered.js.out.log -e /tmp/nodered.js.err.log red.js",
-#  path    => "/bin:/usr/local/bin/:/usr/bin/",
-#  require => [Package['forever']],
-#  unless  => "forever list | grep forever_red"
-#}

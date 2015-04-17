@@ -1,61 +1,38 @@
-exec {"wait for elasticsearch":
-  require => [Elasticsearch::Instance['serviolastic'], File['/opt/servioticy_scripts']],
-  command => "/bin/sh /opt/servioticy_scripts/wait_for_elasticsearch.sh",
-  timeout => 0
-}
+class servioticy::elasticsearch {
 
-$init_hash = {
-  'ES_USER'     => 'elasticsearch',
-  'ES_GROUP'    => 'elasticsearch',
-  'ES_HEAP_SIZE'=> '1g',
-  'DATA_DIR'    => '/data/elasticsearch',
-  'CONF_FILE'   => '/etc/elasticsearch/serviolastic/elasticsearch.yml'
-}
+    include servioticy::params
 
-class { 'elasticsearch':
-  package_url => 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.4.deb',
-  init_defaults => $init_hash,
-  require => Package['oracle-java7-installer'] ,
-}
+    exec {"wait for elasticsearch":
+        require => [Elasticsearch::Instance['serviolastic'], File['$installdir/servioticy_scripts']],
+        command => "/bin/sh $installdir/servioticy_scripts/wait_for_elasticsearch.sh",
+        timeout => 0
+    }
 
-$config_hash = {
-  'cluster.name' => 'serviolastic',
-  'couchbase.password' => 'password',
-  'couchbase.username' => 'admin',
-  'couchbase.maxConcurrentRequests' => '1024',
-  'bootstrap.mlockall' => 'true',
-  'node.name' => 'servinode',
-  'network.publish_host' => '127.0.0.1',
-  'discovery.zen.ping.multicast.enabled' => 'false',
-  'discovery.zen.ping.unicast.hosts' => "[\"${::ipaddress_eth0}\", \"127.0.0.1\"]"
-}
+    class { 'elasticsearch':
+        package_url => $es_url,
+        init_defaults => $es_hash,
+        require => Class["servioticy::packages"],
+    }
 
-elasticsearch::instance { 'serviolastic':
-  config => $config_hash,
-  datadir => '/data/elasticsearch',
-} 
+    elasticsearch::instance { 'serviolastic':
+        config => $es_config_hash,
+        datadir => '$datadir/elasticsearch',
+    }
 
-vcsrepo { "/opt/servioticy-indices":
-  ensure   => latest,
-  provider => git,
-  owner    => 'servioticy',
-  group    => 'servioticy',
-#  require  => [ Package["git"],  Exec['wait for elasticsearch']],
-  require  => [ Package["git"] ],
-  source   => "https://github.com/servioticy/servioticy-elasticsearch-indices.git",
-  revision => 'master',
-#  before   => [Exec['create-indices'], Exec['create-xdcr']]
-} 
+    vcsrepo { "$installdir/servioticy-indices":
+        ensure   => latest,
+        provider => git,
+        owner    => '$user',
+        group    => '$user',
+        require => Class["servioticy::packages"],
+        source   => $git_esindices_url,
+        revision => $git_esindices_revision,
+    } 
 
-#exec {
-#    'create-indices':
-#      command => 'sleep 10 && /bin/sh create_soupdates.sh; /bin/sh create_subscriptions.sh',
-#      cwd => "/opt/servioticy-indices",
-#      path =>  "/usr/local/bin/:/bin/:/usr/bin/",          
-#} 
+    elasticsearch::plugin{ 'mobz/elasticsearch-head':
+        module_dir => 'head',
+        instances  => 'serviolastic',
+        require => Class["servioticy::packages"],
+    }
 
-elasticsearch::plugin{ 'mobz/elasticsearch-head':
-  module_dir => 'head',
-  instances  => 'serviolastic',
-  require  => [ Package["git"], Package['oracle-java7-installer']],
 }

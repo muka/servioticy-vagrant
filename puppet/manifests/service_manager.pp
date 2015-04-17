@@ -1,20 +1,26 @@
-vcsrepo { "/opt/servioticy-service-manager":
-  ensure   => latest,
-  provider => git,
-  owner    => 'servioticy',
-  group    => 'servioticy',
-  source   => "https://github.com/muka/servioticy-mgr.git",
-  revision => 'master',
-} ->
-file { '/usr/bin/servioticy':
-   ensure => 'link',
-   target => '/opt/servioticy-service-manager/bin/service',
-} ->
-exec { 'smgr_add_deps':
-    require => [ Package['nodejs']],
-    user    => 'servioticy',
-    group    => 'servioticy',
-    cwd => "/opt/servioticy-service-manager",
-    path => "/bin:/usr/bin/",
-    command => "npm i"
+class servioticy::service_manager {
+
+    include servioticy::params
+
+    vcsrepo { "$installdir/servioticy-service-manager":
+        ensure   => latest,
+        provider => git,
+        owner    => '$user',
+        group    => '$user',
+        source   => $git_servicemgm_url,
+        revision => $git_servicemgm_revision,
+        require  => Class['servioticy::packages']
+    } ->
+    file { '/usr/bin/servioticy':
+        ensure => 'link',
+        target => '$installdir/servioticy-service-manager/bin/service',
+    } ->
+    exec { 'smgr_add_deps':
+        user    => '$user',
+        group    => '$user',
+        cwd => "$installdir/servioticy-service-manager",
+        path => "/bin:/usr/bin/",
+        command => "npm i"
+    }
+
 }
