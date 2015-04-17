@@ -20,6 +20,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Create a private network, which allows host-only access to the machine
     # using a specific IP.
     config.vm.network :private_network, ip: "192.168.56.101"
+    
+    # ensure hostname matches puppet fqdn node
+    config.vm.hostname = "servioticy.local"
 
     config.vm.provider :virtualbox do |vb|
         vb.customize ["modifyvm", :id, "--memory", 4096 ]
@@ -32,8 +35,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision "puppet" do |puppet|
         puppet.module_path = "puppet/modules"
         puppet.manifests_path = "puppet/manifests/"
-        puppet.manifest_file = "."
-        puppet.options = "--environment dev --graph --graphdir /vagrant/puppet/dependency_graph --logdest /vagrant/puppet-provision.log"
+        puppet.manifest_file = "site.pp"
+        #puppet.options = "--environment dev --graph --graphdir /vagrant/puppet/dependency_graph --logdest /vagrant/puppet-provision.log"
+        puppet.options = "--verbose --debug --environment dev --graph --graphdir /vagrant/puppet/dependency_graph"
     end
 
 end
