@@ -3,7 +3,7 @@ class servioticy::servioticy {
     include servioticy::params
 
     vcsrepo { "srcdir/rhinomod":
-        path     => "$srcdir/rhinomod",
+        path     => "${servioticy::params::srcdir}/rhinomod",
         ensure   => latest,
         provider => git,
         owner    => "root",
@@ -13,14 +13,14 @@ class servioticy::servioticy {
         revision => $git_rhinomod_revision,
     } ->
     exec { "build_rhinomod":
-        cwd     => "$srcdir/rhinomod",
+        cwd     => "${servioticy::params::srcdir}/rhinomod",
         command => "mvn -Dmaven.test.skip=true package",
         path    => "/usr/local/bin/:/usr/bin:/bin/",
         user    => "root",
         timeout => 0
     } ->
     vcsrepo { "srcdir/servioticy":
-        path => "$srcdir/servioticy",
+        path => "${servioticy::params::srcdir}/servioticy",
         ensure   => latest,
         provider => git,
         owner    => "root",
@@ -37,7 +37,7 @@ class servioticy::servioticy {
         maven_path_additions => "",      # anything to add to the PATH in ~/.mavenrc
     } ->
     exec { "build_servioticy":
-        cwd     => "$srcdir/servioticy",
+        cwd     => "${servioticy::params::srcdir}/servioticy",
         command => "git submodule update --init --recursive; mvn -Dmaven.test.skip=true package",
         path    => "/usr/local/bin/:/usr/bin:/bin/",
         user    => "root",
@@ -46,13 +46,13 @@ class servioticy::servioticy {
     file { "installdir/jetty/webapps/private.war":
         path => "${servioticy::params::installdir}/jetty/webapps/private.war",
         ensure => present,
-        source => "$srcdir/servioticy/servioticy-api-private/target/api-private.war",
+        source => "${servioticy::params::srcdir}/servioticy/servioticy-api-private/target/api-private.war",
         #notify  => Service["jetty"],
     } ->
     file { "installdir/jetty/webapps/root.war":
         path => "${servioticy::params::installdir}/jetty/webapps/root.war",
         ensure => present,
-        source => "$srcdir/servioticy/servioticy-api-public/target/api-public.war",
+        source => "${servioticy::params::srcdir}/servioticy/servioticy-api-public/target/api-public.war",
         #notify  => Service["jetty"],
     } ->
     file { "installdir/servioticy-dispatcher/dispatcher_jar":

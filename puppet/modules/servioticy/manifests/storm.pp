@@ -2,7 +2,7 @@ class servioticy::storm {
 
     include servioticy::params
 
-    archive { "apache-storm-$storm_version":
+    archive { "apache-storm-${$servioticy::params::storm_version}":
       ensure    => present,
       follow_redirects => true,
       checksum  => false,

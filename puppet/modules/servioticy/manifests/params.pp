@@ -12,6 +12,8 @@ class servioticy::params {
     $dispatcher_jar = "dispatcher-0.4.3-security-SNAPSHOT-jar-with-dependencies.jar"
     $idm_jar = "COMPOSEIdentityManagement-0.8.0.jar"
     
+    $gradle_path = "/usr/lib/gradle/default/bin/"
+
     $mysql_connector_jar = "mysql-connector-java-5.1.28.jar"
     
     $es_hash = {
@@ -33,12 +35,12 @@ class servioticy::params {
         "discovery.zen.ping.multicast.enabled" => "false",
         "discovery.zen.ping.unicast.hosts" => "[\"${::ipaddress_eth0}\", \"127.0.0.1\"]"
     }
-
+    
     $couchbase_url = "http://packages.couchbase.com/releases/3.0.0/couchbase-server-enterprise_3.0.0-ubuntu12.04_amd64.deb"
     $es_url = "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.4.deb"
     
-    $storm_version = "0.9.2-incubating"
-    $storm_url = "http://www.eu.apache.org/dist/storm/apache-storm-$storm-incubating_version/apache-storm-$storm-incubating_version.tar.gz"
+    $storm_version = "0.9.2"
+    $storm_url = "http://www.eu.apache.org/dist/storm/apache-storm-$storm-incubating_version/apache-storm-${storm_version}-incubating_version.tar.gz"
 
     $kestrel_version = "2.4.1"
     $kestrel_url = "http://twitter.github.io/kestrel/download/kestrel-${kestrel_version}.zip"

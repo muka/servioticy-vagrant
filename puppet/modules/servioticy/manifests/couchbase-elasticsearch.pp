@@ -2,8 +2,8 @@ class servioticy::couchbase-elasticsearch {
 
     include servioticy::params
 
-    vcsrepo { "$srcdir/couchbase-capi-server":
-        path => "$srcdir/couchbase-capi-server",
+    vcsrepo { "${servioticy::params::srcdir}/couchbase-capi-server":
+        path => "${servioticy::params::srcdir}/couchbase-capi-server",
         ensure   => latest,
         provider => git,
         owner    => "root",
@@ -13,7 +13,7 @@ class servioticy::couchbase-elasticsearch {
         revision => $git_es_capi_revision,
     } ->
     exec { "build_couchbase_capi":
-       cwd     => "$srcdir/couchbase-capi-server",
+       cwd     => "${servioticy::params::srcdir}/couchbase-capi-server",
        command => "mvn install",
        path    => "/usr/local/bin/:/usr/bin:/bin/",
        user    => "root",
@@ -30,7 +30,7 @@ class servioticy::couchbase-elasticsearch {
         revision => $git_es_transport_revision,
     } ->
     exec { "build_elasticsearch-transport-couchbase":
-       cwd     => "$srcdir/elasticsearch-transport-couchbase",
+       cwd     => "${servioticy::params::srcdir}/elasticsearch-transport-couchbase",
        command => "mvn install",
        path    => "/usr/local/bin/:/usr/bin:/bin/",
        user    => "root",
@@ -39,7 +39,7 @@ class servioticy::couchbase-elasticsearch {
 
     elasticsearch::plugin{ "transport-couchbase":
       module_dir => "transport-couchbase",
-      url        => "file:///$srcdir/elasticsearch-transport-couchbase/target/releases/elasticsearch-transport-couchbase-2.0.0.zip",
+      url        => "file:///${servioticy::params::srcdir}/elasticsearch-transport-couchbase/target/releases/elasticsearch-transport-couchbase-2.0.0.zip",
       instances  => "serviolastic",
       require  => [ Class["servioticy::packages"], Exec["build_elasticsearch-transport-couchbase"] ],
     }

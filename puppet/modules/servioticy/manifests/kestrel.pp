@@ -7,7 +7,7 @@ class servioticy::kestrel {
         follow_redirects => true,
         extension   => "zip",
         checksum    => false,
-        url         => $kestrel_url,
+        url         => $servioticy::params::kestrel_url,
         target      => $servioticy::params::installdir,
         src_target  => $servioticy::params::downloaddir,
         timeout     => 0,

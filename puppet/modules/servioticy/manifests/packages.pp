@@ -8,6 +8,9 @@ class servioticy::packages {
     apt::ppa { "ppa:chris-lea/node.js":
         before => Exec["apt-get update"]
     }
+    apt::ppa { "ppa:cwchien/gradle":
+        before => Exec["apt-get update"]
+    }
 
     exec { "apt-get update":
         path => "/usr/bin"
@@ -21,7 +24,7 @@ class servioticy::packages {
             command => "/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections";
     }
 
-    package { ["oracle-java7-installer", "curl", "unzip", "nano", "vim", "make", "g++", "git"]:
+    package { ["oracle-java7-installer", "curl", "unzip", "nano", "vim", "make", "g++", "git", "gradle"]:
         ensure => present,
         require => Exec["apt-get update", "set-licence-selected", "set-licence-seen"],
     }

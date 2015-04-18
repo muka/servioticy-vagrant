@@ -6,10 +6,10 @@ class servioticy::apollo {
         ensure => present,
         follow_redirects => true,
         checksum => false,
-        url    => $apollo_src,
+        url    => $servioticy::params::apollo_src,
         target => $servioticy::params::installdir,
         src_target => $servioticy::params::downloaddir,
-        require  => Class["servioticy::packages"],
+        require  => Class["servioticy::setup"],
         timeout => 0
     } ->
     file { "${servioticy::params::installdir}/apache-apollo-1.7":
@@ -18,7 +18,6 @@ class servioticy::apollo {
 
     } ->
     exec { "create_broker":
-        require => [ Package["oracle-java7-installer"] ],
         creates => "${servioticy::params::installdir}/servibroker",
         cwd => "${servioticy::params::installdir}/apache-apollo-1.7/bin/",
         path => "/bin:/usr/bin/:${servioticy::params::installdir}/apache-apollo-1.7/bin/",
@@ -49,7 +48,6 @@ class servioticy::apollo {
         owner    => $user,
         group    => $user,
         source => "${servioticy::params::vagrantdir}/puppet/files/groups.properties",
-        require => Class["servioticy::packages"]
     }
 
 }
