@@ -1,7 +1,5 @@
 class servioticy::apollo {
     
-    include servioticy::params    
-
     archive { "apache-apollo-1.7":
         ensure => present,
         follow_redirects => true,
@@ -9,13 +7,11 @@ class servioticy::apollo {
         url    => $servioticy::params::apollo_src,
         target => $servioticy::params::installdir,
         src_target => $servioticy::params::downloaddir,
-        require  => Class["servioticy::setup"],
         timeout => 0
     } ->
     file { "${servioticy::params::installdir}/apache-apollo-1.7":
-        owner    => $user,
-        group    => $user,
-
+        owner    => $servioticy::params::user,
+        group    => $servioticy::params::user,
     } ->
     exec { "create_broker":
         creates => "${servioticy::params::installdir}/servibroker",
@@ -25,29 +21,33 @@ class servioticy::apollo {
         #logoutput => true,
     } ->
     file { "${servioticy::params::installdir}/servibroker":
-        owner    => $user,
-        group    => $user,
+        path     => "${servioticy::params::installdir}/servibroker",
+        owner    => $servioticy::params::user,
+        group    => $servioticy::params::user,
     } ->
     file { "${servioticy::params::installdir}/servibroker/etc/apollo.xml":
-        ensure => present,
+        path    => "${servioticy::params::installdir}/servibroker/etc/apollo.xml",
+        ensure  => present,
         replace => true,
-        owner    => $user,
-        group    => $user,
-        source => "${servioticy::params::vagrantdir}/puppet/files/apollo.xml",
+        owner   => $servioticy::params::user,
+        group   => $servioticy::params::user,
+        source  => "${servioticy::params::vagrantdir}/puppet/files/apollo.xml",
     } ->
     file { "${servioticy::params::installdir}/servibroker/etc/users.properties":
-        ensure => present,
+        path    => "${servioticy::params::installdir}/servibroker/etc/users.properties",
+        ensure  => present,
         replace => true,
-        owner    => $user,
-        group    => $user,
-        source => "${servioticy::params::vagrantdir}/puppet/files/users.properties",
+        owner   => $servioticy::params::user,
+        group   => $servioticy::params::user,
+        source  => "${servioticy::params::vagrantdir}/puppet/files/users.properties",
     }->
     file { "${servioticy::params::installdir}/servibroker/etc/groups.properties":
-        ensure => present,
+        path    => "${servioticy::params::installdir}/servibroker/etc/groups.properties",
+        ensure  => present,
         replace => true,
-        owner    => $user,
-        group    => $user,
-        source => "${servioticy::params::vagrantdir}/puppet/files/groups.properties",
+        owner   => $servioticy::params::user,
+        group   => $servioticy::params::user,
+        source  => "${servioticy::params::vagrantdir}/puppet/files/groups.properties",
     }
 
 }

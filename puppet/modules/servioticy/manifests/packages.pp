@@ -1,13 +1,18 @@
 class servioticy::packages {
-    
-    include servioticy::params
 
+    class { 'apt':
+        always_apt_update   => false,
+        update_timeout      => 1800,
+    }
+    
     apt::ppa { "ppa:webupd8team/java":
         before => Exec["apt-get update"]
     }
+
     apt::ppa { "ppa:chris-lea/node.js":
         before => Exec["apt-get update"]
     }
+
     apt::ppa { "ppa:cwchien/gradle":
         before => Exec["apt-get update"]
     }
@@ -24,20 +29,9 @@ class servioticy::packages {
             command => "/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections";
     }
 
-    package { ["oracle-java7-installer", "curl", "unzip", "nano", "vim", "make", "g++", "git", "gradle"]:
+    package { ["oracle-java7-installer", "curl", "unzip", "nano", "vim", "make", "g++", "gradle"]:
         ensure => present,
         require => Exec["apt-get update", "set-licence-selected", "set-licence-seen"],
-    }
-
-    vcsrepo { "vagrantdir":
-        path     => $servioticy::params::vagrantdir,
-        ensure   => latest,
-        provider => git,
-        owner    => $user,
-        group    => $user,
-        require  => [Class["servioticy::setup"], Package["git"]],
-        source   => $git_vagrant_src,
-        revision => $git_vagrant_revision,
     }
 
     class { "python" :
@@ -75,23 +69,17 @@ class servioticy::packages {
         require => [Package["nodejs"]]
     }
 
+    file { "/tmp/mysql-server.response":
+        ensure => present,
+        source => "${servioticy::params::vagrantdir}/puppet/files/mysql-server.response",
+    } ->
     package {"mysql-server-5.5":
         ensure => present,
         responsefile => "${servioticy::params::vagrantdir}/puppet/files/mysql-server.response",
-        require => [ Exec["apt-get update"], Vcsrepo["vagrantdir"] ],
-    }
-
+        require => Exec["apt-get update"],
+    } 
+    
     package {"ant":
-        ensure => present,
-        require=> [ Package["oracle-java7-installer"],Exec["apt-get update"] ],
-    }
-
-    package {"libmysql-java":
-        ensure => present,
-        require=> [ Package["oracle-java7-installer"],Exec["apt-get update"] ],
-    }
-
-    package {"tomcat7":
         ensure => present,
         require=> [ Package["oracle-java7-installer"],Exec["apt-get update"] ],
     }

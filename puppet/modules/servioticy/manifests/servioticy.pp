@@ -1,7 +1,12 @@
 class servioticy::servioticy {
 
-    include servioticy::params
-
+    file { "git dir rhinomod":
+        path     => "${servioticy::params::srcdir}/rhinomod",
+        ensure  => directory,
+        recurse => true,
+        owner   => $servioticy::params::user,
+        mode    => 0774
+    } ->
     vcsrepo { "srcdir/rhinomod":
         path     => "${servioticy::params::srcdir}/rhinomod",
         ensure   => latest,
@@ -19,15 +24,22 @@ class servioticy::servioticy {
         user    => "root",
         timeout => 0
     } ->
-    vcsrepo { "srcdir/servioticy":
+    file { "git dir servioticy":
+        path => "${servioticy::params::srcdir}/servioticy",
+        ensure  => directory,
+        recurse => true,
+        owner   => $servioticy::params::user,
+        mode    => 0774
+    } ->
+    vcsrepo { "src servioticy":
         path => "${servioticy::params::srcdir}/servioticy",
         ensure   => latest,
         provider => git,
         owner    => "root",
         group    => "root",
         require  => Class["servioticy::packages"],
-        source   => $git_servioticy_url,
-        revision => $git_servioticy_revision,
+        source   => $servioticy::params::git_servioticy_url,
+        revision => $servioticy::params::git_servioticy_revision,
     } ->
      # Setup a .mavenrc file for the specified user
     maven::environment { "maven-env" :
@@ -43,24 +55,22 @@ class servioticy::servioticy {
         user    => "root",
         timeout => 0
     } ->
-    file { "installdir/jetty/webapps/private.war":
+    file { "private.war":
         path => "${servioticy::params::installdir}/jetty/webapps/private.war",
         ensure => present,
         source => "${servioticy::params::srcdir}/servioticy/servioticy-api-private/target/api-private.war",
-        #notify  => Service["jetty"],
     } ->
-    file { "installdir/jetty/webapps/root.war":
+    file { "root.war":
         path => "${servioticy::params::installdir}/jetty/webapps/root.war",
         ensure => present,
         source => "${servioticy::params::srcdir}/servioticy/servioticy-api-public/target/api-public.war",
-        #notify  => Service["jetty"],
     } ->
-    file { "installdir/servioticy-dispatcher/dispatcher_jar":
+    file { "dispatcher-jar":
         path => "${servioticy::params::installdir}/servioticy-dispatcher/${servioticy::params::dispatcher_jar}",
         ensure => present,
         source => "${servioticy::params::srcdir}/servioticy/servioticy-dispatcher/target/${servioticy::params::dispatcher_jar}",
-        owner    => $user,
-        group    => $user,
+        owner    => $servioticy::params::user,
+        group    => $servioticy::params::user,
     }
 
 

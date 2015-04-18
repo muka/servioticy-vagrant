@@ -1,47 +1,52 @@
 class servioticy::couchbase-elasticsearch {
 
-    include servioticy::params
-
-    vcsrepo { "${servioticy::params::srcdir}/couchbase-capi-server":
-        path => "${servioticy::params::srcdir}/couchbase-capi-server",
+    file { "dir couchbase-capi-server":
+        path     => "${servioticy::params::srcdir}/couchbase-capi-server",
+        ensure  => directory,
+        recurse => true,
+        owner   => $servioticy::params::user,
+        mode    => 0774
+    } ->
+    vcsrepo { "couchbase-capi-server":
+        path     => "${servioticy::params::srcdir}/couchbase-capi-server",
         ensure   => latest,
         provider => git,
         owner    => "root",
         group    => "root",
-        require  => Class["servioticy::packages", "maven::maven"],
-        source   => $git_es_capi_url,
-        revision => $git_es_capi_revision,
+
+        source   => $servioticy::params::git_es_capi_url,
+        revision => $servioticy::params::git_es_capi_revision,
+
     } ->
     exec { "build_couchbase_capi":
-       cwd     => "${servioticy::params::srcdir}/couchbase-capi-server",
-       command => "mvn install",
-       path    => "/usr/local/bin/:/usr/bin:/bin/",
-       user    => "root",
-       require => Class["servioticy::servioticy"]
+        cwd     => "${servioticy::params::srcdir}/couchbase-capi-server",
+        command => "mvn install",
+        path    => "/usr/local/bin/:/usr/bin:/bin/",
+        user    => "root",
     } ->
-    vcsrepo { "srcdir/elasticsearch-transport-couchbase":
-        path => "${servioticy::params::srcdir}/elasticsearch-transport-couchbase",
+    file { "dir elasticsearch-transport-couchbase":
+        path     => "${servioticy::params::srcdir}/elasticsearch-transport-couchbase",
+        ensure  => directory,
+        recurse => true,
+        owner   => $servioticy::params::user,
+        mode    => 0774
+    } ->
+    vcsrepo { "elasticsearch-transport-couchbase":
+        path     => "${servioticy::params::srcdir}/elasticsearch-transport-couchbase",
         ensure   => latest,
         provider => git,
         owner    => "root",
         group    => "root",
-        require  => Class["servioticy::packages", "maven::maven"],
-        source   => $git_es_transport_url,
-        revision => $git_es_transport_revision,
+
+        source   => $servioticy::params::git_es_transport_url,
+        revision => $servioticy::params::git_es_transport_revision,
+
     } ->
     exec { "build_elasticsearch-transport-couchbase":
-       cwd     => "${servioticy::params::srcdir}/elasticsearch-transport-couchbase",
-       command => "mvn install",
-       path    => "/usr/local/bin/:/usr/bin:/bin/",
-       user    => "root",
-       require => [ Exec["build_servioticy"] ]
-    }
-
-    elasticsearch::plugin{ "transport-couchbase":
-      module_dir => "transport-couchbase",
-      url        => "file:///${servioticy::params::srcdir}/elasticsearch-transport-couchbase/target/releases/elasticsearch-transport-couchbase-2.0.0.zip",
-      instances  => "serviolastic",
-      require  => [ Class["servioticy::packages"], Exec["build_elasticsearch-transport-couchbase"] ],
+        cwd     => "${servioticy::params::srcdir}/elasticsearch-transport-couchbase",
+        command => "mvn install",
+        path    => "/usr/local/bin/:/usr/bin:/bin/",
+        user    => "root",
     }
 
 }

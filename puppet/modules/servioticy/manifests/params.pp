@@ -2,7 +2,7 @@ class servioticy::params {
 
     $user = "servioticy"
     
-    $installdir     = "/opt"
+    $installdir     = "/opt/servioticy"
     $srcdir         = "/usr/src"
     $datadir        = "/data"
     $downloaddir    = "/tmp/servioticy"
@@ -36,11 +36,13 @@ class servioticy::params {
         "discovery.zen.ping.unicast.hosts" => "[\"${::ipaddress_eth0}\", \"127.0.0.1\"]"
     }
     
-    $couchbase_url = "http://packages.couchbase.com/releases/3.0.0/couchbase-server-enterprise_3.0.0-ubuntu12.04_amd64.deb"
+    $couchbase_deb = "couchbase-server-enterprise_3.0.0-ubuntu12.04_amd64.deb"
+    $couchbase_url = "http://packages.couchbase.com/releases/3.0.0/${$couchbase_deb}"
+    
     $es_url = "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.4.deb"
     
     $storm_version = "0.9.2"
-    $storm_url = "http://www.eu.apache.org/dist/storm/apache-storm-$storm-incubating_version/apache-storm-${storm_version}-incubating_version.tar.gz"
+    $storm_url = "http://www.eu.apache.org/dist/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.tar.gz"
 
     $kestrel_version = "2.4.1"
     $kestrel_url = "http://twitter.github.io/kestrel/download/kestrel-${kestrel_version}.zip"
@@ -65,7 +67,8 @@ class servioticy::params {
 
     $git_es_capi_url = "https://github.com/couchbaselabs/couchbase-capi-server.git"
     $git_es_capi_revision = "3cbcfdff4a06e3f080eba3d4d7439f0bab5a834e"
-
+    
+    $es_transport_pkg = "elasticsearch-transport-couchbase-2.0.0.zip"
     $git_es_transport_url = "https://github.com/couchbaselabs/elasticsearch-transport-couchbase.git"
     $git_es_transport_revision = "83e588076e0a3df6fa61c0824256e6a00d08a081"
     

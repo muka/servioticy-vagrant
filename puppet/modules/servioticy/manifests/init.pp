@@ -6,20 +6,30 @@ class servioticy {
     }  
 
     include servioticy::params
-    include servioticy::setup
+    include maven::maven
 
-    include servioticy::apollo
-    include servioticy::bridge
-    include servioticy::storm
-    include servioticy::kestrel
-    include servioticy::composer
-    include servioticy::couchbase
-    include servioticy::es
-    include servioticy::couchbase-elasticsearch
+    class { "servioticy::hosts": }
+    -> class { 'servioticy::prepare':}
+    -> class { 'servioticy::vagrant_repo':}
 
-    include servioticy::service_manager
-    include servioticy::uaa
-    include servioticy::security
-    include servioticy::servioticy
+    -> class { 'servioticy::files':} 
+    -> class { 'servioticy::packages':} 
+
+#    -> class { "servioticy::storm": }
+#    -> class { "servioticy::apollo": }
+#    -> class { "servioticy::kestrel": }
+#    -> class { "servioticy::tomcat": }
+
+#    -> class { "servioticy::couchbase": }
+#    -> class { "servioticy::couchbase-elasticsearch": }
+#    -> class { "servioticy::serviolastic": }
+
+#    -> class { "servioticy::composer": }
+#    -> class { "servioticy::bridge": }
+#    -> class { "servioticy::service_manager": }
+
+    -> class { "servioticy::security": }
+    -> class { "servioticy::uaa": }
+    -> class { "servioticy::servioticy": }
 
 }

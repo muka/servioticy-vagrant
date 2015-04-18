@@ -9,14 +9,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Every Vagrant virtual environment requires a box to build off of.
     config.vm.box = "trusty64"
 
-    # required by maven
-    # config.ssh.shell = "export JAVA_HOME=/usr/lib/jvm/java-7-oracle"
-
-    # required by couchbase-cli
-    # config.ssh.shell = "export LC_ALL=\"en_US.UTF-8\""
-    # config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
-    #config.vm.provision "shell", path: "provision.sh"
-
     # Create a private network, which allows host-only access to the machine
     # using a specific IP.
     config.vm.network :private_network, ip: "192.168.56.101"
@@ -37,7 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         puppet.manifests_path = "puppet/manifests/"
         puppet.manifest_file = "site.pp"
         #puppet.options = "--environment dev --graph --graphdir /vagrant/puppet/dependency_graph --logdest /vagrant/puppet-provision.log"
-        puppet.options = "--verbose --debug --environment dev --graph --graphdir /vagrant/puppet/dependency_graph"
+        puppet.options = " --debug --environment dev --graph --graphdir /vagrant/puppet/dependency_graph"
     end
 
 end
