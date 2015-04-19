@@ -1,6 +1,6 @@
 class servioticy::uaa {
 
-    vcsrepo { "srcdir/cf-uaa":
+    vcsrepo { "git cf-uaa":
 
         path     => "${servioticy::params::srcdir}/cf-uaa",
         ensure   => latest,
@@ -9,8 +9,8 @@ class servioticy::uaa {
         owner    => "root",
         group    => "root",
 
-        source   => $git_uaa_url,
-        revision => $git_uaa_revision,
+        source   => $servioticy::params::git_uaa_url,
+        revision => $servioticy::params::git_uaa_revision,
 
     } ->
     yaml_setting { "classname":
@@ -53,6 +53,6 @@ class servioticy::uaa {
     file { "uaa.war":
         path    => "/var/lib/tomcat7/webapps/uaa.war",
         ensure  => present,
-        source  => "${servioticy::params::srcdir}/cf-uaa/uaa/build/libs/cloudfoundry-identity-uaa-1.11.war",
+        source  => "${servioticy::params::srcdir}/cf-uaa/uaa/build/libs/${servioticy::params::uaa_war}",
     }
 }

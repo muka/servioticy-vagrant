@@ -1,4 +1,3 @@
-
 class servioticy {
 
     if $::osfamily != "Debian" {
@@ -19,6 +18,7 @@ class servioticy {
 #    -> class { "servioticy::apollo": }
 #    -> class { "servioticy::kestrel": }
 #    -> class { "servioticy::tomcat": }
+    -> class { "servioticy::jetty_instance": }
 
 #    -> class { "servioticy::couchbase": }
 #    -> class { "servioticy::couchbase-elasticsearch": }

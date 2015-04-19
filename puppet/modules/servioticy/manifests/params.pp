@@ -11,6 +11,8 @@ class servioticy::params {
 
     $dispatcher_jar = "dispatcher-0.4.3-security-SNAPSHOT-jar-with-dependencies.jar"
     $idm_jar = "COMPOSEIdentityManagement-0.8.0.jar"
+    $pdp_jar = "PDPComponentServioticy-0.1.0.jar"
+    $uaa_war = "cloudfoundry-identity-uaa-1.11.war"
     
     $gradle_path = "/usr/lib/gradle/default/bin/"
 
@@ -36,6 +38,8 @@ class servioticy::params {
         "discovery.zen.ping.unicast.hosts" => "[\"${::ipaddress_eth0}\", \"127.0.0.1\"]"
     }
     
+    $es_transport_pkg = "elasticsearch-transport-couchbase-2.0.0.zip"    
+
     $couchbase_deb = "couchbase-server-enterprise_3.0.0-ubuntu12.04_amd64.deb"
     $couchbase_url = "http://packages.couchbase.com/releases/3.0.0/${$couchbase_deb}"
     
@@ -48,7 +52,6 @@ class servioticy::params {
     $kestrel_url = "http://twitter.github.io/kestrel/download/kestrel-${kestrel_version}.zip"
 
     $apollo_src = "http://archive.apache.org/dist/activemq/activemq-apollo/1.7/apache-apollo-1.7-unix-distro.tar.gz"
-
 
     $git_servioticy_url = "https://github.com/servioticy/servioticy.git"
     $git_servioticy_revision = "master"
@@ -68,7 +71,6 @@ class servioticy::params {
     $git_es_capi_url = "https://github.com/couchbaselabs/couchbase-capi-server.git"
     $git_es_capi_revision = "3cbcfdff4a06e3f080eba3d4d7439f0bab5a834e"
     
-    $es_transport_pkg = "elasticsearch-transport-couchbase-2.0.0.zip"
     $git_es_transport_url = "https://github.com/couchbaselabs/elasticsearch-transport-couchbase.git"
     $git_es_transport_revision = "83e588076e0a3df6fa61c0824256e6a00d08a081"
     
@@ -84,6 +86,7 @@ class servioticy::params {
     $git_servicemgm_url = "https://github.com/muka/servioticy-mgr.git"
     $git_servicemgm_revision = "master"
     
-    $git_uaa_url = "git://github.com/cloudfoundry/uaa.git"
+    $git_uaa_url = "https://github.com/cloudfoundry/uaa.git"
     $git_uaa_revision = "9156eed2dcc13d8aa1198523d5ce3876e3fe61d7"
+
 }

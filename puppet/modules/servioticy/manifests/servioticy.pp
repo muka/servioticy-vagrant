@@ -1,21 +1,17 @@
 class servioticy::servioticy {
 
-    file { "git dir rhinomod":
-        path     => "${servioticy::params::srcdir}/rhinomod",
-        ensure  => directory,
-        recurse => true,
-        owner   => $servioticy::params::user,
-        mode    => 0774
-    } ->
     vcsrepo { "srcdir/rhinomod":
+
         path     => "${servioticy::params::srcdir}/rhinomod",
         ensure   => latest,
         provider => git,
+
         owner    => "root",
         group    => "root",
-        require  => Class["servioticy::packages"],
-        source   => $git_rhinomod_src,
-        revision => $git_rhinomod_revision,
+
+        source   => $servioticy::params::git_rhinomod_src,
+        revision => $servioticy::params::git_rhinomod_revision,
+
     } ->
     exec { "build_rhinomod":
         cwd     => "${servioticy::params::srcdir}/rhinomod",
@@ -24,22 +20,18 @@ class servioticy::servioticy {
         user    => "root",
         timeout => 0
     } ->
-    file { "git dir servioticy":
-        path => "${servioticy::params::srcdir}/servioticy",
-        ensure  => directory,
-        recurse => true,
-        owner   => $servioticy::params::user,
-        mode    => 0774
-    } ->
     vcsrepo { "src servioticy":
+
         path => "${servioticy::params::srcdir}/servioticy",
         ensure   => latest,
         provider => git,
+
         owner    => "root",
         group    => "root",
-        require  => Class["servioticy::packages"],
+
         source   => $servioticy::params::git_servioticy_url,
         revision => $servioticy::params::git_servioticy_revision,
+
     } ->
      # Setup a .mavenrc file for the specified user
     maven::environment { "maven-env" :
