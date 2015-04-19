@@ -10,23 +10,22 @@ class servioticy {
     class { "servioticy::hosts": }
     -> class { 'servioticy::prepare':}
     -> class { 'servioticy::vagrant_repo':}
-
     -> class { 'servioticy::files':} 
     -> class { 'servioticy::packages':} 
 
-#    -> class { "servioticy::storm": }
-#    -> class { "servioticy::apollo": }
-#    -> class { "servioticy::kestrel": }
-#    -> class { "servioticy::tomcat": }
+    -> class { "servioticy::storm": }
+    -> class { "servioticy::apollo": }
+    -> class { "servioticy::kestrel": }
+    -> class { "servioticy::tomcat": }
     -> class { "servioticy::jetty_instance": }
 
-#    -> class { "servioticy::couchbase": }
-#    -> class { "servioticy::couchbase-elasticsearch": }
-#    -> class { "servioticy::serviolastic": }
+    -> class { "servioticy::couchbase": }
+    -> class { "servioticy::couchbase-elasticsearch": }
+    -> class { "servioticy::serviolastic": }
 
-#    -> class { "servioticy::composer": }
-#    -> class { "servioticy::bridge": }
-#    -> class { "servioticy::service_manager": }
+    -> class { "servioticy::bridge": }
+    -> class { "servioticy::service_manager": }
+    -> class { "servioticy::composer": }
 
     -> class { "servioticy::security": }
     -> class { "servioticy::uaa": }

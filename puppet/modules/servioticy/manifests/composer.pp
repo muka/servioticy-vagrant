@@ -13,8 +13,8 @@ class servioticy::composer {
         provider => git,
         owner    => $servioticy::params::user,
         group    => $servioticy::params::user,
-        source   => $git_composer_url,
-        revision => $git_composer_revision,
+        source   => $servioticy::params::git_composer_url,
+        revision => $servioticy::params::git_composer_revision,
     }
 
 }

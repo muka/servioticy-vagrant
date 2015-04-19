@@ -13,16 +13,17 @@ class servioticy::servioticy {
         revision => $servioticy::params::git_rhinomod_revision,
 
     } ->
-    exec { "ant_build_rhinomod":
+    exec { "ant_jar_rhinomod":
         cwd     => "${servioticy::params::srcdir}/rhinomod",
-        command => "ant compile",
+        command => "ant jar",
         path    => "/usr/local/bin/:/usr/bin:/bin/",
         user    => "root",
         timeout => 0
     } ->
     exec { "mvn_install_rhinomod":
         cwd     => "${servioticy::params::srcdir}/rhinomod",
-        command => "mvn deploy:deploy-file -Durl=file://${servioticy::params::srcdir}/rhinomod -Dfile=${servioticy::params::srcdir}/rhinomod/target/rhino-1.7R4.jar -DgroupId=org.mozilla -DartifactId=rhino -Dversion=1.7R4-mod-SNAPSHOT -Dpackaging=jar",
+        #command => "mvn deploy:deploy-file -Durl=file://${servioticy::params::srcdir}/rhinomod -Dfile=${servioticy::params::srcdir}/rhinomod/build/rhino1_7R5pre/js.jar -DgroupId=org.mozilla -DartifactId=rhino -Dversion=1.7R4-mod-SNAPSHOT -Dpackaging=jar",
+        command => "mvn install:install-file -Dfile=build/rhino1_7R5pre/js.jar -DgroupId=org.mozilla -DartifactId=rhino -Dversion=1.7R4-mod-SNAPSHOT -Dpackaging=jar",
         path    => "/usr/local/bin/:/usr/bin:/bin/",
         user    => "root",
         timeout => 0
@@ -42,9 +43,8 @@ class servioticy::servioticy {
     } ->
      # Setup a .mavenrc file for the specified user
     maven::environment { "maven-env" :
-        user => "root",
-        # anything to add to MAVEN_OPTS in ~/.mavenrc
-        maven_opts => "-Xmx1384m",       # anything to add to MAVEN_OPTS in ~/.mavenrc
+        user                 => "root",
+        maven_opts           => "-Xmx1384m",       # anything to add to MAVEN_OPTS in ~/.mavenrc
         maven_path_additions => "",      # anything to add to the PATH in ~/.mavenrc
     } ->
     exec { "build_servioticy":
