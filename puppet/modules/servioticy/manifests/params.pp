@@ -54,7 +54,7 @@ class servioticy::params {
     $apollo_src = "http://archive.apache.org/dist/activemq/activemq-apollo/1.7/apache-apollo-1.7-unix-distro.tar.gz"
 
     $git_servioticy_url = "https://github.com/servioticy/servioticy.git"
-    $git_servioticy_revision = "master"
+    $git_servioticy_revision = "security"
 
     $git_rhinomod_src = "https://github.com/WolframG/Rhino-Prov-Mod.git"
     $git_rhinomod_revision = "master"
