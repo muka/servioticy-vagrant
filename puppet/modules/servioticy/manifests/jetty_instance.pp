@@ -1,12 +1,9 @@
 class servioticy::jetty_instance {
 
     class { "jetty":
-
         manage_user => false,
-
         version     => "9.2.3.v20140905",
-
-        home        => $servioticy::params::installdir,
+        home        => "${servioticy::params::installdir}/",
         user        => $servioticy::params::user,
         group       => $servioticy::params::user,
 
