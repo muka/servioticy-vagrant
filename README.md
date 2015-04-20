@@ -6,7 +6,6 @@ Puppet is used to setup and launch all the needed components to run the servioti
 
 ##Requirements
 * Vagrant 1.6 or newwer is necessary (see vagrantup.com for more information)
-* vagrant-puppet-install plugin (`vagrant plugin install vagrant-puppet-install` to install)
 
 ##Running  the instance
 
@@ -38,11 +37,11 @@ or alternatively
 
 ##Running on a standalone dev server
 
-Install the software components on a running machine.
+Install the software components on a machine not managed by vagrant.
 
-It will create a user `servioticy` with password `servioticy` and install all the required packages in `/opt`
+It will create a user `servioticy` and install all the required packages in `/opt/servioticy`
 
-`sudo ./puppet-standalone.sh`
+Clone this repository in the machine to setup and run `sudo ./scripts/puppet-standalone.sh`
 
 ** Backup your system before proceeding as some operation may result in data loss **
 

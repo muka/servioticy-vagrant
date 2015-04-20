@@ -8,6 +8,8 @@ class servioticy::params {
     $downloaddir    = "/tmp/servioticy"
     $logdir         = "${installdir}/logs"
     $vagrantdir     = "${installdir}/servioticy-vagrant"
+	
+    ## services settings
 
     $dispatcher_jar = "dispatcher-0.4.3-security-SNAPSHOT-jar-with-dependencies.jar"
     $idm_jar = "COMPOSEIdentityManagement-0.8.0.jar"
@@ -61,14 +63,17 @@ class servioticy::params {
     $mysql_version = "5.5"
     $mysql_root_passwd = "root"
 
+    ## repo settings
+
     $git_servioticy_url = "https://github.com/servioticy/servioticy.git"
     $git_servioticy_revision = "security"
 
     $git_rhinomod_src = "https://github.com/WolframG/Rhino-Prov-Mod.git"
     $git_rhinomod_revision = "master"
 
+#    $git_vagrant_src = "https://github.com/servioticy/servioticy-vagrant.git"
     $git_vagrant_src = "https://github.com/muka/servioticy-vagrant.git"
-    $git_vagrant_revision = "refactor"
+    $git_vagrant_revision = "security"
 
     $git_bridge_src = "https://github.com/servioticy/servioticy-brokers.git"
     $git_bridge_revision = "master"
