@@ -2,6 +2,8 @@ class servioticy::prepare {
 
     include servioticy::params
 
+    class { "maven::maven":
+    } ->
     group {"servioticy_gid":
         name        => $servioticy::params::user,
         ensure      => present
@@ -29,6 +31,11 @@ class servioticy::prepare {
         ensure      => "directory",
         owner       => $servioticy::params::user,
         group       => $servioticy::params::user,
+    } ->
+    maven::environment { "maven-env" :
+        user                 => "root",
+        maven_opts           => "-Xmx1384m",       # anything to add to MAVEN_OPTS in ~/.mavenrc
+        maven_path_additions => "",      # anything to add to the PATH in ~/.mavenrc
     }
     # ->
     #file { ".bash_aliases":

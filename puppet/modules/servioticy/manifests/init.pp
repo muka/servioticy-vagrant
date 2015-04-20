@@ -5,7 +5,6 @@ class servioticy {
     }
 
     include servioticy::params
-    include maven::maven
 
     class { "servioticy::hosts": }
     -> class { 'servioticy::prepare':}
@@ -30,5 +29,7 @@ class servioticy {
     -> class { "servioticy::security": }
     -> class { "servioticy::uaa": }
     -> class { "servioticy::servioticy": }
+
+    -> class { "servioticy::start_all": }
 
 }

@@ -41,12 +41,6 @@ class servioticy::servioticy {
         revision => $servioticy::params::git_servioticy_revision,
 
     } ->
-     # Setup a .mavenrc file for the specified user
-    maven::environment { "maven-env" :
-        user                 => "root",
-        maven_opts           => "-Xmx1384m",       # anything to add to MAVEN_OPTS in ~/.mavenrc
-        maven_path_additions => "",      # anything to add to the PATH in ~/.mavenrc
-    } ->
     exec { "build_servioticy":
         cwd     => "${servioticy::params::srcdir}/servioticy",
         command => "git submodule update --init --recursive; mvn -Dmaven.test.skip=true package",

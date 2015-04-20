@@ -1,10 +1,15 @@
 class servioticy::packages {
 
+
+    $mysql_root_passwd = $servioticy::params::mysql_root_passwd
+    $mysql_version = $servioticy::params::mysql_version
+
+
     class { 'apt':
         always_apt_update   => false,
         update_timeout      => 1800,
     }
-    
+
     apt::ppa { "ppa:webupd8team/java":
         before => Exec["apt-get update"]
     }
@@ -39,12 +44,12 @@ class servioticy::packages {
         pip        => true,
         dev        => false,
         virtualenv => true,
-        gunicorn   => false    
-    } 
+        gunicorn   => false
+    }
 
     python::pip { "Flask" :
         pkgname       => "Flask",
-    } 
+    }
     python::pip { "simplejson" :
         pkgname       => "simplejson",
     }
@@ -57,12 +62,12 @@ class servioticy::packages {
         ensure   => present,
         provider => "npm",
         require => [Package["nodejs"], Package["make"], Package["g++"]]
-    } 
+    }
     package { "stompjs":
         ensure   => present,
         provider => "npm",
         require => [Package["nodejs"]]
-    } 
+    }
     package { "forever":
         ensure   => present,
         provider => "npm",
@@ -71,22 +76,23 @@ class servioticy::packages {
 
     file { "/tmp/mysql-server.response":
         ensure => present,
-        source => "${servioticy::params::vagrantdir}/puppet/files/mysql-server.response",
+#        source => "${servioticy::params::vagrantdir}/puppet/files/mysql-server.response",
+        content => template("servioticy/mysql-response.erb")
     } ->
-    package {"mysql-server-5.5":
+    package {"mysql-server-${servioticy::params::mysql_version}":
         ensure => present,
         responsefile => "${servioticy::params::vagrantdir}/puppet/files/mysql-server.response",
         require => Exec["apt-get update"],
-    } 
-    
+    }
+
     package {"ant":
         ensure => present,
         require=> [ Package["oracle-java7-installer"],Exec["apt-get update"] ],
     }
 
-    class { "motd": 
+    class { "motd":
         config_file => "/etc/motd.tail",
-        template => getvar("${servioticy::params::vagrantdir}/puppet/modules/servioticy/templates/motd_servioticy.erb")
+        template => "servioticy/motd-servioticy.erb"
     }
 
 }

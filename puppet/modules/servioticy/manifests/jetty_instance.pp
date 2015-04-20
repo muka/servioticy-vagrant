@@ -1,10 +1,10 @@
 class servioticy::jetty_instance {
 
-    $tpl_path = "${servioticy::params::vagrantdir}/puppet/modules/servioticy/templates/jetty-default.erb"
+    $tpl_path = "servioticy/jetty-default.erb"
     $tpl_content = template($tpl_path)
 
     $jetty_home = "${servioticy::params::installdir}/jetty"
-    $jetty_dir = "${servioticy::params::installdir}/jetty-${servioticy::params::jetty_version}"
+    $jetty_dir = $servioticy::params::jetty_dir
 
     if $servioticy::params::jetty_user {
         $jetty_user = $servioticy::params::jetty_user
@@ -27,7 +27,7 @@ class servioticy::jetty_instance {
     } ->
     archive { "jetty-${servioticy::params::jetty_version}.tar.gz":
         url    => $servioticy::params::jetty_url,
-        target => $jetty_dir,
+        target => $servioticy::params::installdir,
         src_target => $servioticy::params::downloaddir,
         ensure => present,
         follow_redirects => true,

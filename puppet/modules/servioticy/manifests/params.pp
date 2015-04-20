@@ -42,6 +42,7 @@ class servioticy::params {
 
     $jetty_version = "9.2.10.v20150310"
     $jetty_user = "jetty"
+    $jetty_dir = "${installdir}/jetty-distribution-${jetty_version}"
     $jetty_url = "http://download.eclipse.org/jetty/stable-9/dist/jetty-distribution-${jetty_version}.tar.gz"
 
     $couchbase_deb = "couchbase-server-enterprise_3.0.0-ubuntu12.04_amd64.deb"
@@ -56,6 +57,9 @@ class servioticy::params {
     $kestrel_url = "http://twitter.github.io/kestrel/download/kestrel-${kestrel_version}.zip"
 
     $apollo_src = "http://archive.apache.org/dist/activemq/activemq-apollo/1.7/apache-apollo-1.7-unix-distro.tar.gz"
+
+    $mysql_version = "5.5"
+    $mysql_root_passwd = "root"
 
     $git_servioticy_url = "https://github.com/servioticy/servioticy.git"
     $git_servioticy_revision = "security"
