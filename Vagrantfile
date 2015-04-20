@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Create a private network, which allows host-only access to the machine
     # using a specific IP.
     config.vm.network :private_network, ip: "192.168.56.101"
-    
+
     # ensure hostname matches puppet fqdn node
     config.vm.hostname = "servioticy.local"
 
@@ -21,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.customize ["modifyvm", :id, "--cpus", 4]
     end
 
-    config.vm.provision :shell, :path => "prepare_env.sh"
+    config.vm.provision :shell, :path => "scripts/prepare_env.sh"
 
     #puppet config
     config.vm.provision "puppet" do |puppet|

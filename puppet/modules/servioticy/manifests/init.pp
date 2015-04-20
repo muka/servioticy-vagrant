@@ -2,7 +2,7 @@ class servioticy {
 
     if $::osfamily != "Debian" {
       fail("This module only works on Debian or derivatives like Ubuntu")
-    }  
+    }
 
     include servioticy::params
     include maven::maven
@@ -10,8 +10,8 @@ class servioticy {
     class { "servioticy::hosts": }
     -> class { 'servioticy::prepare':}
     -> class { 'servioticy::vagrant_repo':}
-    -> class { 'servioticy::files':} 
-    -> class { 'servioticy::packages':} 
+    -> class { 'servioticy::files':}
+    -> class { 'servioticy::packages':}
 
     -> class { "servioticy::storm": }
     -> class { "servioticy::apollo": }

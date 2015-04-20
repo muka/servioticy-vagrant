@@ -11,6 +11,7 @@ echo "" > puppet-provision.log
 release="puppetlabs-release-$DISTRIB_CODENAME.deb"
 
 if [ ! -e "./$release" ]; then
+
     echo "Installing puppet..."
     wget "https://apt.puppetlabs.com/$release"
     sudo dpkg -i "$release"
