@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sh ./prepare_env.sh
+sh ./scripts/prepare_env.sh
 
 puppet apply --debug \
 --modulepath ./puppet/modules/ \
