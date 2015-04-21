@@ -34,7 +34,7 @@ class servioticy::prepare {
     } ->
     maven::environment { "maven-env" :
         user                 => "root",
-        maven_opts           => "-Xmx1384m",       # anything to add to MAVEN_OPTS in ~/.mavenrc
+        maven_opts           => "-Xmx1384m -Dfile.encoding=UTF8",       # anything to add to MAVEN_OPTS in ~/.mavenrc
         maven_path_additions => "",      # anything to add to the PATH in ~/.mavenrc
     }
     # ->
