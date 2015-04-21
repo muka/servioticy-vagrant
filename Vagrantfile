@@ -25,11 +25,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     #puppet config
     config.vm.provision "puppet" do |puppet|
-        puppet.module_path = "puppet/modules"
+        #puppet.module_path = "puppet/modules"
         puppet.manifests_path = "puppet/manifests/"
         puppet.manifest_file = "site.pp"
         #puppet.options = "--environment dev --graph --graphdir /vagrant/puppet/dependency_graph --logdest /vagrant/puppet-provision.log"
-        puppet.options = " --debug --environment dev --graph --graphdir /vagrant/puppet/dependency_graph"
+        puppet.options = " --debug --environment development --graph --graphdir /vagrant/puppet/dependency_graph"
     end
 
 end

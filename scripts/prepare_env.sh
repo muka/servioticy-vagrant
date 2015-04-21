@@ -14,4 +14,6 @@ if [ ! -e "./$release" ]; then
     sudo apt-get update -qq
     sudo apt-get install puppet -yqq
 
+    sudo puppet module install /vagrant/puppet/module/compose-servioticy
+
 fi
