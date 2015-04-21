@@ -14,6 +14,19 @@ if [ ! -e "./$release" ]; then
     sudo apt-get update -qq
     sudo apt-get install puppet -yqq
 
-    sudo puppet module install /vagrant/puppet/module/compose-servioticy
+    sudo puppet module install puppetlabs-apt
+    sudo puppet module install camptocamp-archive
+    sudo puppet module install camptocamp-augeas
+    sudo puppet module install puppetlabs-concat
+    sudo puppet module install elasticsearch-elasticsearch
+    sudo puppet module install maestrodev-jetty
+    sudo puppet module install maestrodev-maven
+    sudo puppet module install saz-motd
+    sudo puppet module install jfryman-nginx
+    sudo puppet module install stankevich-python
+    sudo puppet module install puppetlabs-stdlib
+    sudo puppet module install puppetlabs-vcsrepo
+    sudo puppet module install maestrodev-wget
+    sudo puppet module install reidmv-yamlfile
 
 fi

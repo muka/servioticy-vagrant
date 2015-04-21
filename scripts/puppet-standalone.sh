@@ -1,8 +1,11 @@
 #!/bin/sh
 
-sh ./scripts/prepare_env.sh
+sudo sh ./scripts/prepare_env.sh
 
-puppet apply --debug \
+sudo ln -s $PWD/puppet/modules/compose-servioticy /etc/puppet/modules/
+
+sudo puppet apply \
+--debug \
 --manifest ./puppet/manifests/ \
 --environment development \
 --graph --graphdir ./puppet/dependency_graph \
