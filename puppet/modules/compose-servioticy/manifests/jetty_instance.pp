@@ -13,6 +13,20 @@ class servioticy::jetty_instance {
         $jetty_user = "jetty"
     }
 
+    if $servioticy::params::jetty_port {
+        $jetty_port = $servioticy::params::jetty_port
+    }
+    else {
+        $jetty_port = "8080"
+    }
+
+    if $servioticy::params::jetty_host {
+        $jetty_host = $servioticy::params::jetty_host
+    }
+    else {
+        $jetty_host = "0.0.0.0"
+    }
+
     group {"jetty_gid":
         name        => "jetty",
         ensure      => present
@@ -58,6 +72,11 @@ class servioticy::jetty_instance {
     file_line { "cross_origin":
         path    => "${jetty_home}/start.ini",
         line    => "--module=servlets",
+    } ->
+    file { "/etc/init.d/jetty":
+        ensure  => "link",
+        target  => "${jetty_path}/bin/jetty.sh",
+        mode    => 755
     }
 
 }

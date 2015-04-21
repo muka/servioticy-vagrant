@@ -8,7 +8,7 @@ class servioticy::params {
     $downloaddir    = "/tmp/servioticy"
     $logdir         = "${installdir}/logs"
     $vagrantdir     = "${installdir}/servioticy-vagrant"
-	
+
     ## services settings
 
     $dispatcher_jar = "dispatcher-0.4.3-security-SNAPSHOT-jar-with-dependencies.jar"
@@ -44,6 +44,9 @@ class servioticy::params {
 
     $jetty_version = "9.2.10.v20150310"
     $jetty_user = "jetty"
+    $jetty_host = "0.0.0.0"
+    $jetty_port = "8080"
+
     $jetty_dir = "${installdir}/jetty-distribution-${jetty_version}"
     $jetty_url = "http://download.eclipse.org/jetty/stable-9/dist/jetty-distribution-${jetty_version}.tar.gz"
 
@@ -97,7 +100,7 @@ class servioticy::params {
     $git_pdp_revision = "master"
 
     $git_servicemgm_url = "https://github.com/muka/servioticy-mgr.git"
-    $git_servicemgm_revision = "master"
+    $git_servicemgm_revision = "security"
 
     $git_uaa_url = "https://github.com/cloudfoundry/uaa.git"
     $git_uaa_revision = "9156eed2dcc13d8aa1198523d5ce3876e3fe61d7"
