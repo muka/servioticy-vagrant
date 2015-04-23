@@ -6,8 +6,6 @@ class servioticy::packages {
 
 
     class { 'apt':
-        always_apt_update   => false,
-        update_timeout      => 1800,
     }
 
     apt::ppa { "ppa:webupd8team/java":
