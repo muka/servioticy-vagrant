@@ -30,3 +30,11 @@ if [ ! -e "./$release" ]; then
     sudo puppet module install reidmv-yamlfile
 
 fi
+
+dir=/vagrant
+if [ ! -e "/vagrant" ]
+then
+  dir=$PWD
+fi
+
+sudo ln -s $dir/puppet/modules/compose-servioticy /etc/puppet/modules/servioticy
