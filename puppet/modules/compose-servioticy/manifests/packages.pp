@@ -1,12 +1,10 @@
 class servioticy::packages {
-
-
+    
     $mysql_root_passwd = $servioticy::params::mysql_root_passwd
     $mysql_version = $servioticy::params::mysql_version
 
 
-    class { 'apt':
-    }
+    class { 'apt': }
 
     apt::ppa { "ppa:webupd8team/java":
         before => Exec["apt-get update"]
@@ -18,10 +16,6 @@ class servioticy::packages {
 
     apt::ppa { "ppa:cwchien/gradle":
         before => Exec["apt-get update"]
-    }
-
-    exec { "apt-get update":
-        path => "/usr/bin"
     }
 
     exec {
@@ -52,24 +46,23 @@ class servioticy::packages {
         pkgname       => "simplejson",
     }
 
-    package { ["nodejs"]:
-        ensure => present,
-        require => [Exec["apt-get update"], Package["g++", "make"]]
-    }
+    exec { "apt-get update":
+        path => "/usr/bin"
+    } ->
+    class { "nodejs": 
+    } ->
     package { "couchbase":
         ensure   => present,
         provider => "npm",
-        require => [Package["nodejs"], Package["make"], Package["g++"]]
-    }
+        require => [ Package["make"], Package["g++"] ]
+    } ->
     package { "stompjs":
         ensure   => present,
         provider => "npm",
-        require => [Package["nodejs"]]
-    }
+    } ->
     package { "forever":
         ensure   => present,
         provider => "npm",
-        require => [Package["nodejs"]]
     }
 
     file { "/tmp/mysql-server.response":
@@ -86,8 +79,7 @@ class servioticy::packages {
     package {"ant":
         ensure => present,
         require=> [ Package["oracle-java7-installer"],Exec["apt-get update"] ],
-    }
-
+    } ->
     class { "motd":
         config_file => "/etc/motd.tail",
         template => "servioticy/motd-servioticy.erb"
