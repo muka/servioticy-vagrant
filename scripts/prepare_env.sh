@@ -28,5 +28,20 @@ if [ ! -e "./$release" ]; then
     sudo puppet module install puppetlabs-vcsrepo
     sudo puppet module install maestrodev-wget
     sudo puppet module install reidmv-yamlfile
+    sudo puppet module install puppetlabs-nodejs
+
+fi
+
+if [ ! -e "/etc/puppet/modules/servioticy" ]
+then
+
+
+  dir=/vagrant
+  if [ ! -e "/vagrant" ]
+  then
+    dir=$PWD
+  fi
+
+  sudo ln -s $dir/puppet/modules/compose-servioticy /etc/puppet/modules/servioticy
 
 fi
