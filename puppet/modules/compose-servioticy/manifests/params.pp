@@ -68,7 +68,8 @@ class servioticy::params {
 
     ## repo settings
 
-    $git_servioticy_url = "https://github.com/servioticy/servioticy.git"
+#    $git_servioticy_url = "https://github.com/servioticy/servioticy.git"
+    $git_servioticy_url = "https://github.com/muka/servioticy.git"
     $git_servioticy_revision = "security"
 
     $git_rhinomod_src = "https://github.com/WolframG/Rhino-Prov-Mod.git"
@@ -78,7 +79,8 @@ class servioticy::params {
     $git_vagrant_src = "https://github.com/muka/servioticy-vagrant.git"
     $git_vagrant_revision = "security"
 
-    $git_bridge_src = "https://github.com/servioticy/servioticy-brokers.git"
+#    $git_bridge_src = "https://github.com/servioticy/servioticy-brokers.git"
+    $git_bridge_src = "https://github.com/muka/servioticy-brokers.git"
     $git_bridge_revision = "master"
 
     $git_composer_url = "https://github.com/servioticy/servioticy-composer.git"
