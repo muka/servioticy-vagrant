@@ -23,7 +23,7 @@ auth:
 
     # define the type of auth
     # token, idm, sqlite
-    type: sqlite
+    type: token
 
     # Configure sqlitedb for initial user management (TO DEPRECATE)
     sqlitedb: jdbc:sqlite:/data/userDB/users.db
