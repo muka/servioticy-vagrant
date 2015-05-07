@@ -7,6 +7,7 @@ class servioticy::start_all {
 
         command => "servioticy start",
 
+        timeout => 0,
         user    => "root",
         group   => "root",
     }
