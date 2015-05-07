@@ -2,7 +2,6 @@ class servioticy::jetty_instance {
 
     $jetty_home = "${servioticy::params::installdir}/jetty"
     $jetty_dir = $servioticy::params::jetty_dir
-    $jetty_user = $servioticy::params::jetty_user
 
     if $servioticy::params::jetty_user {
         $jetty_user = $servioticy::params::jetty_user
