@@ -1,10 +1,8 @@
 class servioticy::jetty_instance {
 
-    $tpl_path = "servioticy/jetty-default.erb"
-    $tpl_content = template($tpl_path)
-
     $jetty_home = "${servioticy::params::installdir}/jetty"
     $jetty_dir = $servioticy::params::jetty_dir
+    $jetty_user = $servioticy::params::jetty_user
 
     if $servioticy::params::jetty_user {
         $jetty_user = $servioticy::params::jetty_user
@@ -24,8 +22,11 @@ class servioticy::jetty_instance {
         $jetty_host = $servioticy::params::jetty_host
     }
     else {
-        $jetty_host = "0.0.0.0"
+        $jetty_host = "127.0.0.1"
     }
+
+    $tpl_path = "servioticy/jetty-default.erb"
+    $tpl_content = template($tpl_path)
 
     group {"jetty_gid":
         name        => "jetty",
@@ -75,7 +76,7 @@ class servioticy::jetty_instance {
     } ->
     file { "/etc/init.d/jetty":
         ensure  => "link",
-        target  => "${jetty_path}/bin/jetty.sh",
+        target  => "${jetty_home}/bin/jetty.sh",
         mode    => 755
     }
 
