@@ -28,7 +28,7 @@ auth:
     # Configure sqlitedb for initial user management (TO DEPRECATE)
     sqlitedb: jdbc:sqlite:/data/userDB/users.db
 
-    token_url: http://auth.iotango.local/api/token
+    token_url: http://auth.local/token/check
 
     # Configure security
     idm_host: 127.0.0.1
@@ -41,7 +41,7 @@ elasticsearch:
     # connection type, may be node or transport
     type: transport
     # Example: 172.20.11.4,172.20.11.3
-    search_servers: 127.0.0.1
+    search_servers: servioticy.local
     # Example: 9300-9400
     search_ports: 9300-9400
     transport_server: servioticy.local
