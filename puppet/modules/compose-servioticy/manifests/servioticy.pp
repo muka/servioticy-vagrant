@@ -43,7 +43,7 @@ class servioticy::servioticy {
     } ->
     exec { "build_servioticy":
         cwd     => "${servioticy::params::srcdir}/servioticy",
-        command => "git submodule update --init --recursive; mvn -Dmaven.test.skip=true package",
+        command => "git submodule update --init --recursive; mvn -Dmaven.test.skip=true package; mvn install",
         path    => "/usr/local/bin/:/usr/bin:/bin/",
         user    => "root",
         timeout => 0
@@ -60,7 +60,7 @@ class servioticy::servioticy {
     } ->
     exec { "build_dispatcher":
         cwd     => "${servioticy::params::srcdir}/servioticy/servioticy-dispatcher",
-        command => "mvn clean compile",
+        command => "mvn clean package",
         path    => "/usr/local/bin/:/usr/bin:/bin/",
         user    => "root",
         timeout => 0
