@@ -58,12 +58,19 @@ class servioticy::servioticy {
         ensure => present,
         source => "${servioticy::params::srcdir}/servioticy/servioticy-api-public/target/api-public.war",
     } ->
+    exec { "build_dispatcher":
+        cwd     => "${servioticy::params::srcdir}/servioticy/servioticy-dispatcher",
+        command => "mvn clean compile",
+        path    => "/usr/local/bin/:/usr/bin:/bin/",
+        user    => "root",
+        timeout => 0
+    } ->
     file { "dispatcher-jar":
-        path => "${servioticy::params::installdir}/servioticy-dispatcher/${servioticy::params::dispatcher_jar}",
-        ensure => present,
+        path => "${servioticy::params::installdir}/servioticy-dispatcher/dispatcher.jar",
+        ensure => "link",
         source => "${servioticy::params::srcdir}/servioticy/servioticy-dispatcher/target/${servioticy::params::dispatcher_jar}",
-        owner    => $servioticy::params::user,
-        group    => $servioticy::params::user,
+        owner    => "root",
+        group    => "root",
     }
 
 
