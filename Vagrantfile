@@ -16,8 +16,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # ensure hostname matches puppet fqdn node
     config.vm.hostname = "servioticy.local"
 
-   config.vm.synced_folder "../../src/servioticy", "/home/vagrant/src", :nfs => true
-
     config.vm.provider :virtualbox do |vb|
         vb.customize ["modifyvm", :id, "--memory", 4096 ]
         vb.customize ["modifyvm", :id, "--cpus", 4]

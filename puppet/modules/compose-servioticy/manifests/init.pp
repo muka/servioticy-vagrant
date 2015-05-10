@@ -12,6 +12,7 @@ class servioticy {
     -> class { 'servioticy::files':}
     -> class { 'servioticy::packages':}
 
+    -> class { "servioticy::nginx_http": }
     -> class { "servioticy::storm": }
     -> class { "servioticy::apollo": }
     -> class { "servioticy::kestrel": }

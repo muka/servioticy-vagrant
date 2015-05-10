@@ -21,7 +21,7 @@ class servioticy::security {
     exec { "build compose-idm":
         path    => "/usr/local/bin/:/usr/bin:/bin/:${servioticy::params::srcdir}/compose-idm:${servioticy::params::gradle_path}",
         cwd     => "${servioticy::params::srcdir}/compose-idm",
-        command => "gradle installApp -x test",
+        command => "gradle build -x test",
         user    => "root",
         group   => "root",
     } ->
