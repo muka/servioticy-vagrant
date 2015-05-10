@@ -14,7 +14,7 @@ class servioticy::jetty_instance {
         $jetty_port = $servioticy::params::jetty_port
     }
     else {
-        $jetty_port = "8080"
+        $jetty_port = "8070"
     }
 
     if $servioticy::params::jetty_host {
