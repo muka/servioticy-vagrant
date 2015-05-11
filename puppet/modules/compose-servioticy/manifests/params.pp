@@ -95,7 +95,8 @@ class servioticy::params {
     $git_esindices_url = "https://github.com/servioticy/servioticy-elasticsearch-indices.git"
     $git_esindices_revision = "master"
 
-    $git_idm_url = "https://github.com/nopobyte/compose-idm"
+#    $git_idm_url = "https://github.com/nopobyte/compose-idm"
+    $git_idm_url = "https://github.com/muka/compose-idm"
     $git_idm_revision = "master"
 
     $git_pdp_url = "https://github.com/nopbyte/servioticy-pdp"
