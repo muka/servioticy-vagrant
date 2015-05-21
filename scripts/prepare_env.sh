@@ -14,21 +14,21 @@ if [ ! -e "./$release" ]; then
     sudo apt-get update -qq
     sudo apt-get install puppet -yqq
 
-    sudo puppet module install puppetlabs-apt
-    sudo puppet module install camptocamp-archive
-    sudo puppet module install camptocamp-augeas
-    sudo puppet module install puppetlabs-concat
-    sudo puppet module install elasticsearch-elasticsearch
-    sudo puppet module install maestrodev-jetty
-    sudo puppet module install maestrodev-maven
-    sudo puppet module install saz-motd
-    sudo puppet module install jfryman-nginx
-    sudo puppet module install stankevich-python
-    sudo puppet module install puppetlabs-stdlib
-    sudo puppet module install puppetlabs-vcsrepo
-    sudo puppet module install maestrodev-wget
-    sudo puppet module install reidmv-yamlfile
-    sudo puppet module install puppetlabs-nodejs
+    sudo puppet module install puppetlabs-apt --version 1.8.0
+    sudo puppet module install camptocamp-archive --version 0.5.2
+    sudo puppet module install camptocamp-augeas --version 1.2.3
+    sudo puppet module install puppetlabs-concat --version 1.2.1
+    sudo puppet module install elasticsearch-elasticsearch --version 0.9.5
+    sudo puppet module install maestrodev-jetty --version 1.1.2
+    sudo puppet module install maestrodev-maven --version 1.4.0
+    sudo puppet module install saz-motd --version 2.2.1
+    sudo puppet module install jfryman-nginx --version 0.2.6
+    sudo puppet module install stankevich-python --version 1.9.4
+    sudo puppet module install puppetlabs-stdlib --version 1.0.0
+    sudo puppet module install puppetlabs-vcsrepo --version 1.2.0
+    sudo puppet module install maestrodev-wget --version  1.6.0
+    sudo puppet module install reidmv-yamlfile --version 0.2.0
+    sudo puppet module install puppetlabs-nodejs --version 0.8.0
 
 fi
 

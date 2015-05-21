@@ -47,7 +47,7 @@ class servioticy::security {
     exec { "build compose-pdp":
         path    => "/usr/local/bin/:/usr/bin:/bin/:${servioticy::params::srcdir}/compose-pdp:${servioticy::params::gradle_path}",
         cwd     => "${servioticy::params::srcdir}/compose-pdp",
-        command => "gradle clean build install -x test",
+        command => "gradle clean install -x test",
         user    => "root",
         group   => "root",
     } ->
@@ -57,6 +57,6 @@ class servioticy::security {
         command => "mvn install:install-file -Dfile=${servioticy::params::pdp_jar} -DgroupId=de.passau.uni -DartifactId=servioticy-pdp -Dversion=0.1.0 -Dpackaging=jar",
         user    => "root",
         group   => "root",
-    } 
+    }
 
 }

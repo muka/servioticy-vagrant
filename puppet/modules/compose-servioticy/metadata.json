@@ -16,55 +16,63 @@
     "dependencies": [
         {
             "name": "puppetlabs-stdlib",
-            "version_requirement": ">= 1.0.0"
+            "version_requirement": "= 1.0.0"
         },
         {
             "name": "puppetlabs-apt",
-            "version_requirement": ">= 1.8.0"
+            "version_requirement": "= 1.8.0"
         },
         {
             "name": "camptocamp-archive",
-            "version_requirement": ">= 0.5.2"
+            "version_requirement": "= 0.5.2"
         },
         {
             "name": "camptocamp-augeas",
-            "version_requirement": ">= 1.2.3"
+            "version_requirement": "= 1.2.3"
         },
         {
             "name": "puppetlabs-concat",
-            "version_requirement": ">= 1.2.1"
+            "version_requirement": "= 1.2.1"
         },
         {
             "name": "elasticsearch-elasticsearch",
-            "version_requirement": ">= 0.9.5"
+            "version_requirement": "= 0.9.5"
         },
         {
             "name": "maestrodev-maven",
-            "version_requirement": ">= 1.4.0"
+            "version_requirement": "= 1.4.0"
         },
         {
             "name": "saz-motd",
-            "version_requirement": ">= 2.2.1"
+            "version_requirement": "= 2.2.1"
         },
         {
             "name": "jfryman-nginx",
-            "version_requirement": ">= 0.2.6"
+            "version_requirement": "= 0.2.6"
         },
         {
             "name": "stankevich-python",
-            "version_requirement": ">= 1.9.4"
+            "version_requirement": "= 1.9.4"
         },
         {
             "name": "puppetlabs-vcsrepo",
-            "version_requirement": ">= 1.2.0"
+            "version_requirement": "= 1.2.0"
         },
         {
             "name": "maestrodev-wget",
-            "version_requirement": ">= 1.6.0"
+            "version_requirement": "= 1.6.0"
+        },
+        {
+            "name": "puppetlabs-nodejs",
+            "version_requirement": "= 0.8.0"
+        },
+        {
+            "name": "maestrodev-jetty",
+            "version_requirement": "= 1.1.2"
         },
         {
             "name": "reidmv-yamlfile",
-            "version_requirement": ">= 0.2.0"
+            "version_requirement": "= 0.2.0"
         }
     ]
 }

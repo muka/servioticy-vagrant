@@ -1,34 +1,13 @@
 class servioticy::packages {
-    
+
     $mysql_root_passwd = $servioticy::params::mysql_root_passwd
     $mysql_version = $servioticy::params::mysql_version
 
 
     class { 'apt': }
 
-    apt::ppa { "ppa:webupd8team/java":
-        before => Exec["apt-get update"]
-    }
-
-    apt::ppa { "ppa:chris-lea/node.js":
-        before => Exec["apt-get update"]
-    }
-
-    apt::ppa { "ppa:cwchien/gradle":
-        before => Exec["apt-get update"]
-    }
-
-    exec {
-        "set-licence-selected":
-            command => "/bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections";
-
-        "set-licence-seen":
-            command => "/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections";
-    }
-
-    package { ["oracle-java7-installer", "curl", "unzip", "nano", "vim", "make", "g++", "gradle"]:
-        ensure => present,
-        require => Exec["apt-get update", "set-licence-selected", "set-licence-seen"],
+    exec { "apt-update":
+        command => "/usr/bin/apt-get update"
     }
 
     class { "python" :
@@ -42,14 +21,35 @@ class servioticy::packages {
     python::pip { "Flask" :
         pkgname       => "Flask",
     }
+
     python::pip { "simplejson" :
         pkgname       => "simplejson",
     }
 
-    exec { "apt-get update":
-        path => "/usr/bin"
+    apt::ppa { "ppa:webupd8team/java":
+        before  => Exec['apt-update'],
+    }
+
+    apt::ppa { "ppa:cwchien/gradle":
+        before => Exec['apt-update'],
+    }
+
+    Exec["apt-update"] ->
+    exec {
+
+        "set-licence-selected":
+            command => "/bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections";
+
+        "set-licence-seen":
+            command => "/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections";
+
     } ->
-    class { "nodejs": 
+    package { ["oracle-java7-installer", "curl", "unzip", "nano", "vim", "make", "g++", "gradle"]:
+        ensure => present,
+        require => Exec["set-licence-selected", "set-licence-seen"],
+    }
+
+    class { "nodejs":
     } ->
     package { "couchbase":
         ensure   => present,
@@ -73,12 +73,11 @@ class servioticy::packages {
     package {"mysql-server-${servioticy::params::mysql_version}":
         ensure => present,
         responsefile => "${servioticy::params::vagrantdir}/puppet/files/mysql-server.response",
-        require => Exec["apt-get update"],
     }
 
     package {"ant":
         ensure => present,
-        require=> [ Package["oracle-java7-installer"],Exec["apt-get update"] ],
+        require=> [ Package["oracle-java7-installer"] ],
     } ->
     class { "motd":
         config_file => "/etc/motd.tail",
