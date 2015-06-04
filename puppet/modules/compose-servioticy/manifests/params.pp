@@ -45,7 +45,7 @@ class servioticy::params {
     $jetty_version = "9.2.10.v20150310"
     $jetty_user = "jetty"
     $jetty_host = "0.0.0.0"
-    $jetty_port = "8080"
+    $jetty_port = "8070"
 
     $jetty_dir = "${installdir}/jetty-distribution-${jetty_version}"
     $jetty_url = "http://download.eclipse.org/jetty/stable-9/dist/jetty-distribution-${jetty_version}.tar.gz"

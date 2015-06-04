@@ -13,6 +13,7 @@ class servioticy::apollo {
         owner    => $servioticy::params::user,
         group    => $servioticy::params::user,
     } ->
+
     exec { "create_broker":
         creates => "${servioticy::params::installdir}/servibroker",
         cwd => "${servioticy::params::installdir}/apache-apollo-1.7/bin/",
@@ -31,7 +32,7 @@ class servioticy::apollo {
         replace => true,
         owner   => $servioticy::params::user,
         group   => $servioticy::params::user,
-        source  => "${servioticy::params::vagrantdir}/puppet/files/apollo.xml",
+        source  => "${servioticy::params::vagrantdir}/puppet/files/broker/servibroker/apollo.xml",
     } ->
     file { "${servioticy::params::installdir}/servibroker/etc/users.properties":
         path    => "${servioticy::params::installdir}/servibroker/etc/users.properties",
@@ -39,7 +40,7 @@ class servioticy::apollo {
         replace => true,
         owner   => $servioticy::params::user,
         group   => $servioticy::params::user,
-        source  => "${servioticy::params::vagrantdir}/puppet/files/users.properties",
+        source  => "${servioticy::params::vagrantdir}/puppet/files/broker/servibroker/users.properties",
     }->
     file { "${servioticy::params::installdir}/servibroker/etc/groups.properties":
         path    => "${servioticy::params::installdir}/servibroker/etc/groups.properties",
@@ -47,7 +48,44 @@ class servioticy::apollo {
         replace => true,
         owner   => $servioticy::params::user,
         group   => $servioticy::params::user,
-        source  => "${servioticy::params::vagrantdir}/puppet/files/groups.properties",
+        source  => "${servioticy::params::vagrantdir}/puppet/files/broker/servibroker/groups.properties",
+    } ->
+
+    exec { "create_internal_broker":
+        creates => "${servioticy::params::installdir}/internal-broker",
+        cwd => "${servioticy::params::installdir}/apache-apollo-1.7/bin/",
+        path => "/bin:/usr/bin/:${servioticy::params::installdir}/apache-apollo-1.7/bin/",
+        command => "apollo create ${servioticy::params::installdir}/internal-broker",
+        #logoutput => true,
+    } ->
+    file { "${servioticy::params::installdir}/internal-broker":
+        path     => "${servioticy::params::installdir}/internal-broker",
+        owner    => $servioticy::params::user,
+        group    => $servioticy::params::user,
+    } ->
+    file { "${servioticy::params::installdir}/internal-broker/etc/apollo.xml":
+        path    => "${servioticy::params::installdir}/internal-broker/etc/apollo.xml",
+        ensure  => present,
+        replace => true,
+        owner   => $servioticy::params::user,
+        group   => $servioticy::params::user,
+        source  => "${servioticy::params::vagrantdir}/puppet/files/broker/internal/apollo.xml",
+    } ->
+    file { "${servioticy::params::installdir}/internal-broker/etc/users.properties":
+        path    => "${servioticy::params::installdir}/internal-broker/etc/users.properties",
+        ensure  => present,
+        replace => true,
+        owner   => $servioticy::params::user,
+        group   => $servioticy::params::user,
+        source  => "${servioticy::params::vagrantdir}/puppet/files/broker/internal/users.properties",
+    }->
+    file { "${servioticy::params::installdir}/internal-broker/etc/groups.properties":
+        path    => "${servioticy::params::installdir}/internal-broker/etc/groups.properties",
+        ensure  => present,
+        replace => true,
+        owner   => $servioticy::params::user,
+        group   => $servioticy::params::user,
+        source  => "${servioticy::params::vagrantdir}/puppet/files/broker/internal/groups.properties",
     }
 
 }

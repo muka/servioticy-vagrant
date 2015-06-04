@@ -63,31 +63,3 @@ new KestrelConfig {
   }
 
 }
- 
-queues = new QueueBuilder {
-// keep items for no longer than a half hour, and don't accept any more if
-// the queue reaches 1.5M items.
-name = "avg"
-maxAge = 300.seconds
-maxItems = 1500000
-} :: new QueueBuilder {
-// don't keep a journal file for this queue. when kestrel exits, any
-// remaining contents will be lost.
-name = "transient_events"
-keepJournal = false
-} :: new QueueBuilder {
-name = "services"
-// Timeout for the descriptors
-maxAge = 300.seconds
-maxItems = 1500000
-}
- 
-loggers = new LoggerConfig {
-level = Level.INFO
-handlers = new FileHandlerConfig {
-filename = "/tmp/kestrel.log"
-roll = Policy.Never
-}
-}
- 
-}

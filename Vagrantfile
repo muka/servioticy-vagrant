@@ -17,9 +17,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.hostname = "servioticy.local"
 
     config.vm.provider :virtualbox do |vb|
-        vb.customize ["modifyvm", :id, "--memory", 4096 ]
+        vb.customize ["modifyvm", :id, "--memory", 1024 * 6 ]
         vb.customize ["modifyvm", :id, "--cpus", 4]
     end
+
+    config.vm.synced_folder "/home/l/git/github.com/servioticy-mgr/", "/home/vagrant/servioticy-mgr"
 
     config.vm.provision :shell, :path => "scripts/prepare_env.sh"
 
