@@ -42,7 +42,7 @@ class servioticy::params {
 
     $es_transport_pkg = "elasticsearch-transport-couchbase-2.0.0.zip"
 
-    $jetty_version = "9.2.10.v20150310"
+    $jetty_version = "9.2.11.v20150529"
     $jetty_user = "jetty"
     $jetty_host = "0.0.0.0"
     $jetty_port = "8070"

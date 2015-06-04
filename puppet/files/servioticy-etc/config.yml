@@ -47,3 +47,10 @@ elasticsearch:
     transport_server: servioticy.local
     transport_port: 9300
 
+broker:
+
+    internal_protocol: mqtt
+    internal_username: servioticy
+    internal_password: iot
+    internal_host: servioticy.local
+    internal_port: 61883

@@ -54,12 +54,12 @@
 
   </virtual_host>
 
-  <web_admin bind="http://0.0.0.0:61682"/>
-  <web_admin bind="https://0.0.0.0:61683"/>
+  <web_admin bind="http://0.0.0.0:61880"/>
+  <web_admin bind="https://0.0.0.0:61881"/>
 
-  <!--<connector id="tcp" bind="tcp://0.0.0.0:61613" connection_limit="2000"/>-->
+  <connector id="ws" bind="ws://0.0.0.0:61882" connection_limit="2000"/>
   <connector id="tcp" bind="tcp://0.0.0.0:61883" connection_limit="2000"/>
-  <connector id="amqp" bind="amqp//0.0.0.0:5672" connection_limit="2000"/>
+  <connector id="amqp" bind="tcp://0.0.0.0:5672"/>
 
   <key_storage file="${apollo.base}/etc/keystore" password="password" key_password="password"/>
 
