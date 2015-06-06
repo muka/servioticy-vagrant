@@ -30,7 +30,7 @@ class servioticy::tomcat {
         replace => true,
         owner   => "tomcat7",
         group   => "tomcat7",
-        source  => "${servioticy::params::vagrantdir}/puppet/files/server.xml",
+        source  => "${servioticy::params::vagrantdir}/puppet/files/tomcat-server.xml",
     }
 
 }

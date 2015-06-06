@@ -48,16 +48,16 @@ class servioticy::servioticy {
         user    => "root",
         timeout => 0
     } ->
-    file { "private.war":
-        path => "${servioticy::params::installdir}/jetty/webapps/private.war",
-        ensure => present,
-        source => "${servioticy::params::srcdir}/servioticy/servioticy-api-private/target/api-private.war",
-    } ->
-    file { "root.war":
-        path => "${servioticy::params::installdir}/jetty/webapps/root.war",
-        ensure => present,
-        source => "${servioticy::params::srcdir}/servioticy/servioticy-api-public/target/api-public.war",
-    } ->
+#    file { "private.war":
+#        path => "${servioticy::params::installdir}/jetty/webapps/private.war",
+#        ensure => present,
+#        source => "${servioticy::params::srcdir}/servioticy/servioticy-api-private/target/api-private.war",
+#    } ->
+#    file { "root.war":
+#        path => "${servioticy::params::installdir}/jetty/webapps/root.war",
+#        ensure => present,
+#        source => "${servioticy::params::srcdir}/servioticy/servioticy-api-public/target/api-public.war",
+#    } ->
     exec { "build_dispatcher":
         cwd     => "${servioticy::params::srcdir}/servioticy/servioticy-dispatcher",
         command => "mvn clean package",
@@ -73,5 +73,35 @@ class servioticy::servioticy {
         group    => "root",
     }
 
+    -> file { "tomcat api public":
+        path => "/var/lib/tomcat7/ROOT.war",
+        ensure => "link",
+        source => "${servioticy::params::installdir}/servioticy-api-public/target/api-public.war",
+        owner    => "root",
+        group    => "root",
+    } ->
+    file { "tomcat api private":
+        path => "/var/lib/tomcat7/private.war",
+        ensure => "link",
+        source => "${servioticy::params::installdir}/servioticy-api-private/target/api-private.war",
+        owner    => "root",
+        group    => "root",
+    }
 
+/*
+    -> file { "jetty api public":
+        path => "/opt/servioticy/jetty/webapps/root.war",
+        ensure => "link",
+        source => "${servioticy::params::installdir}/servioticy-api-public/target/api-public.war",
+        owner    => "root",
+        group    => "root",
+    } ->
+    file { "jetty api private":
+        path => "/opt/servioticy/jetty/webapps/private.war",
+        ensure => "link",
+        source => "${servioticy::params::installdir}/servioticy-api-private/target/api-private.war",
+        owner    => "root",
+        group    => "root",
+    }
+*/
 }
