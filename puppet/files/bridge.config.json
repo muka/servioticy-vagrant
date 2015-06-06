@@ -1,0 +1,15 @@
+{
+    "api": "http://servioticy.local",
+    "stomp": {
+        "url": "mqtt://servioticy.local:1883",
+        "user": "compose",
+        "password": "shines",
+        "topicFrom": null,
+        "topicStreamFrom": null,
+        "topicActionFrom": null
+    },
+    "debug": false,
+    "logFile": null,
+    "logLevel": "warn",
+    "consoleLogLevel": "verbose"
+}
