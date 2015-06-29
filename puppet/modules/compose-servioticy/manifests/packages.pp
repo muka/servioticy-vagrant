@@ -3,7 +3,6 @@ class servioticy::packages {
     $mysql_root_passwd = $servioticy::params::mysql_root_passwd
     $mysql_version = $servioticy::params::mysql_version
 
-
     class { 'apt': }
 
     exec { "apt-update":

@@ -19,12 +19,13 @@ class servioticy::bridge {
         revision => $servioticy::params::git_bridge_revision,
 
     } ->
-    exec: { "bridge npm deps":
+    exec { "bridge npm deps":
         command   => "npm i",
+        path      => "/usr/bin",
         cwd       => "${servioticy::params::installdir}/servioticy-bridge",
         user      => "root"
     } ->
-    file: { "add bridge config":
+    file { "add bridge config":
         ensure    => "present",
         path      => "${servioticy::params::installdir}/servioticy-bridge/config.json",
         source    => "${servioticy::params::vagrantdir}/puppet/files/bridge.config.json"

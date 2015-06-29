@@ -21,8 +21,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.customize ["modifyvm", :id, "--cpus", 4]
     end
 
-    config.vm.synced_folder "/home/l/git/github.com/servioticy-mgr/", "/home/vagrant/servioticy-mgr"
-
     config.vm.provision :shell, :path => "scripts/prepare_env.sh"
 
     #puppet config
@@ -30,8 +28,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         #puppet.module_path = "puppet/modules"
         puppet.manifests_path = "puppet/manifests/"
         puppet.manifest_file = "site.pp"
-        #puppet.options = "--environment dev --graph --graphdir /vagrant/puppet/dependency_graph --logdest /vagrant/puppet-provision.log"
-        puppet.options = " --debug --environment development --graph --graphdir /vagrant/puppet/dependency_graph"
+        #puppet.options = " --debug --environment development --graph --graphdir /vagrant/puppet/dependency_graph"
+        puppet.options = "--environment development --graph --graphdir /vagrant/puppet/dependency_graph"
     end
 
 end

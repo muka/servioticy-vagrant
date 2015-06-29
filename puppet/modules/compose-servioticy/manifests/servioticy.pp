@@ -74,16 +74,16 @@ class servioticy::servioticy {
     }
 
     -> file { "tomcat api public":
-        path => "/var/lib/tomcat7/ROOT.war",
+        path => "/var/lib/tomcat7/webapps/ROOT.war",
         ensure => "link",
-        source => "${servioticy::params::installdir}/servioticy-api-public/target/api-public.war",
+        source => "${servioticy::params::srcdir}/servioticy/servioticy-api-public/target/api-public.war",
         owner    => "root",
         group    => "root",
     } ->
     file { "tomcat api private":
-        path => "/var/lib/tomcat7/private.war",
+        path => "/var/lib/tomcat7/webapps/private.war",
         ensure => "link",
-        source => "${servioticy::params::installdir}/servioticy-api-private/target/api-private.war",
+        source => "${servioticy::params::srcdir}/servioticy/servioticy-api-private/target/api-private.war",
         owner    => "root",
         group    => "root",
     }
@@ -92,14 +92,14 @@ class servioticy::servioticy {
     -> file { "jetty api public":
         path => "/opt/servioticy/jetty/webapps/root.war",
         ensure => "link",
-        source => "${servioticy::params::installdir}/servioticy-api-public/target/api-public.war",
+        source => "${servioticy::params::srcdir}/servioticy/servioticy-api-public/target/api-public.war",
         owner    => "root",
         group    => "root",
     } ->
     file { "jetty api private":
         path => "/opt/servioticy/jetty/webapps/private.war",
         ensure => "link",
-        source => "${servioticy::params::installdir}/servioticy-api-private/target/api-private.war",
+        source => "${servioticy::params::srcdir}/servioticy/servioticy-api-private/target/api-private.war",
         owner    => "root",
         group    => "root",
     }
