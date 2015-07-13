@@ -1,6 +1,6 @@
 class servioticy::apollo {
-    
-    archive { "apache-apollo-1.7":
+
+    archive { "apache-apollo-${servioticy::params::apollo_version}":
         ensure => present,
         follow_redirects => true,
         checksum => false,
@@ -9,15 +9,15 @@ class servioticy::apollo {
         src_target => $servioticy::params::downloaddir,
         timeout => 0
     } ->
-    file { "${servioticy::params::installdir}/apache-apollo-1.7":
+    file { "${servioticy::params::installdir}/apache-apollo-${servioticy::params::apollo_version}":
         owner    => $servioticy::params::user,
         group    => $servioticy::params::user,
     } ->
 
     exec { "create_broker":
         creates => "${servioticy::params::installdir}/servibroker",
-        cwd => "${servioticy::params::installdir}/apache-apollo-1.7/bin/",
-        path => "/bin:/usr/bin/:${servioticy::params::installdir}/apache-apollo-1.7/bin/",
+        cwd => "${servioticy::params::installdir}/apache-apollo-${servioticy::params::apollo_version}/bin/",
+        path => "/bin:/usr/bin/:${servioticy::params::installdir}/apache-apollo-${servioticy::params::apollo_version}/bin/",
         command => "apollo create ${servioticy::params::installdir}/servibroker",
         #logoutput => true,
     } ->
@@ -53,8 +53,8 @@ class servioticy::apollo {
 
     exec { "create_internal_broker":
         creates => "${servioticy::params::installdir}/internal-broker",
-        cwd => "${servioticy::params::installdir}/apache-apollo-1.7/bin/",
-        path => "/bin:/usr/bin/:${servioticy::params::installdir}/apache-apollo-1.7/bin/",
+        cwd => "${servioticy::params::installdir}/apache-apollo-${servioticy::params::apollo_version}/bin/",
+        path => "/bin:/usr/bin/:${servioticy::params::installdir}/apache-apollo-${servioticy::params::apollo_version}/bin/",
         command => "apollo create ${servioticy::params::installdir}/internal-broker",
         #logoutput => true,
     } ->
