@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Create a private network, which allows host-only access to the machine
     # using a specific IP.
-    config.vm.network :private_network, ip: "192.168.22.10"
+    config.vm.network :private_network, ip: "192.168.100.10"
 
     # ensure hostname matches puppet fqdn node
     config.vm.hostname = "servioticy.local"
