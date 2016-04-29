@@ -1,8 +1,5 @@
 class servioticy::packages {
 
-    $mysql_root_passwd = $servioticy::params::mysql_root_passwd
-    $mysql_version = $servioticy::params::mysql_version
-
     class { 'apt': }
 
     exec { "apt-update":
@@ -62,16 +59,6 @@ class servioticy::packages {
     package { "forever":
         ensure   => present,
         provider => "npm",
-    }
-
-    file { "/tmp/mysql-server.response":
-        ensure => present,
-#        source => "${servioticy::params::vagrantdir}/puppet/files/mysql-server.response",
-        content => template("servioticy/mysql-response.erb")
-    } ->
-    package {"mysql-server-${servioticy::params::mysql_version}":
-        ensure => present,
-        responsefile => "${servioticy::params::vagrantdir}/puppet/files/mysql-server.response",
     }
 
     package {"ant":

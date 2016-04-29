@@ -27,6 +27,7 @@ class servioticy::service_manager {
         user     => $servioticy::params::user,
         group    => $servioticy::params::user,
         cwd      => "${servioticy::params::installdir}/servioticy-service-manager",
+        creates  => "${servioticy::params::installdir}/servioticy-service-manager/node_modules",
         path     => "/bin:/usr/bin/",
         command  => "npm i"
     }

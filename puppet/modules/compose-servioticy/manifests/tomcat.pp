@@ -9,16 +9,8 @@ class servioticy::tomcat {
         name    => "tomcat7",
         groups  => "tomcat7",
     } ->
-    package {"libmysql-java":
-        ensure  => present,
-    } ->
     package {"tomcat7":
         ensure  => present,
-    } ->
-    file { "/usr/share/tomcat7/lib/mysql_connector_jar":
-        path    => "/usr/share/tomcat7/lib/${servioticy::params::mysql_connector_jar}",
-        ensure  => present,
-        source  => "/usr/share/java/${servioticy::params::mysql_connector_jar}",
     } ->
     file { "/etc/tomcat7":
         ensure  => "directory",

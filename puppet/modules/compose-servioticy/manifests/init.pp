@@ -13,11 +13,8 @@ class servioticy {
     -> class { 'servioticy::packages':}
 
     -> class { "servioticy::nginx_http": }
-    -> class { "servioticy::storm": }
     -> class { "servioticy::apollo": }
-    -> class { "servioticy::kestrel": }
     -> class { "servioticy::tomcat": }
-    -> class { "servioticy::jetty_instance": }
 
     -> class { "servioticy::couchbase": }
     -> class { "servioticy::couchbase-elasticsearch": }
@@ -27,8 +24,6 @@ class servioticy {
     -> class { "servioticy::service_manager": }
     -> class { "servioticy::composer": }
 
-    -> class { "servioticy::security": }
-    -> class { "servioticy::uaa": }
     -> class { "servioticy::servioticy": }
 
     -> class { "servioticy::start_all": }
